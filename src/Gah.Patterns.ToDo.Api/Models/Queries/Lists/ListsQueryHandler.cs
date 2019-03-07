@@ -5,8 +5,8 @@
     using System.Threading.Tasks;
 
     using Gah.Blocks.CqrsEs.Queries;
-    using Gah.Patterns.Todo.Domain;
-    using Gah.Patterns.Todo.Repository;
+    using Gah.Patterns.ToDo.Domain;
+    using Gah.Patterns.ToDo.Repository;
 
     using Microsoft.Extensions.Logging;
 
@@ -23,14 +23,14 @@
         /// <summary>
         /// The repository
         /// </summary>
-        private ITodoListRepository repository;
+        private IToDoListRepository repository;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ListsQueryHandler"/> class.
         /// </summary>
         /// <param name="repository">The repository.</param>
         /// <param name="logger">The logger.</param>
-        public ListsQueryHandler(ITodoListRepository repository, ILogger<ListsQueryHandler> logger)
+        public ListsQueryHandler(IToDoListRepository repository, ILogger<ListsQueryHandler> logger)
         {
             this.logger = logger;
             this.repository = repository;

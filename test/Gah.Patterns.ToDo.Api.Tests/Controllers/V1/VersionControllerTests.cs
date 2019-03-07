@@ -2,7 +2,7 @@
 {
     // ReSharper disable once StyleCop.SA1210
     using Gah.Patterns.ToDo.Api.Controllers.V1;
-    using Gah.Patterns.Todo.Domain;
+    using Gah.Patterns.ToDo.Domain;
 
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;

@@ -5,13 +5,11 @@
     using System.Diagnostics.CodeAnalysis;
 
     using Gah.Blocks.CqrsEs.Queries;
-
-    // ReSharper disable once StyleCop.SA1210
     using Gah.Patterns.ToDo.Api.Models.Queries.Lists;
-    using Gah.Patterns.Todo.Domain;
-    using Gah.Patterns.Todo.Repository;
-    using Gah.Patterns.Todo.Repository.Sql;
-    using Gah.Patterns.Todo.Repository.Sql.Data;
+    using Gah.Patterns.ToDo.Domain;
+    using Gah.Patterns.ToDo.Repository;
+    using Gah.Patterns.ToDo.Repository.Sql;
+    using Gah.Patterns.ToDo.Repository.Sql.Data;
 
     using MediatR;
 
@@ -84,7 +82,7 @@
             services.AddTransient<ServiceFactory>(sp => sp.GetService);
 
             // Add Repositories
-            services.AddScoped<ITodoListRepository, ToDoListRepository>();
+            services.AddScoped<IToDoListRepository, ToDoListRepository>();
             services.AddScoped<IToDoItemRepository, ToDoItemRepository>();
 
             // Add CQRS

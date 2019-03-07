@@ -1,15 +1,15 @@
-namespace Gah.Patterns.Todo.Repository
+namespace Gah.Patterns.ToDo.Repository
 {
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
-    using Gah.Patterns.Todo.Domain;
+    using Gah.Patterns.ToDo.Domain;
 
     /// <summary>
     /// Basic Class
     /// </summary>
-    public interface ITodoListRepository
+    public interface IToDoListRepository
     {
         /// <summary>
         /// Finds the items.

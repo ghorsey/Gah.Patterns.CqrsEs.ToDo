@@ -2,7 +2,7 @@
 {
     using System.Net;
 
-    using Gah.Patterns.Todo.Domain;
+    using Gah.Patterns.ToDo.Domain;
 
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;

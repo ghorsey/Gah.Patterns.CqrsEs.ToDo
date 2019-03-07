@@ -18,23 +18,23 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{48CA5D5C-0
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "blocks", "blocks", "{CD0813A6-24DB-4DDF-ADE6-B2918DDDC68C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gah.Blocks.CqrsEs.Tests", "test\blocks\Gah.Blocks.CqrsEs.Tests\Gah.Blocks.CqrsEs.Tests.csproj", "{7860C7DF-2BBE-415E-BD96-127A821CAA21}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gah.Blocks.CqrsEs.Tests", "test\blocks\Gah.Blocks.CqrsEs.Tests\Gah.Blocks.CqrsEs.Tests.csproj", "{7860C7DF-2BBE-415E-BD96-127A821CAA21}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "app", "app", "{33EFC67F-6ABD-4D14-99E9-FF7B7FFD8309}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gah.Patterns.Todo.Domain", "src\app\Gah.Patterns.Todo.Domain\Gah.Patterns.Todo.Domain.csproj", "{5A24DE65-4D30-4857-8837-2C49D8818DCA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gah.Patterns.ToDo.Domain", "src\app\Gah.Patterns.Todo.Domain\Gah.Patterns.ToDo.Domain.csproj", "{5A24DE65-4D30-4857-8837-2C49D8818DCA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gah.Patterns.Todo.Repository", "src\app\Gah.Patterns.Todo.Repository\Gah.Patterns.Todo.Repository.csproj", "{AA5D9909-B770-43FC-81E4-63641937C79B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gah.Patterns.ToDo.Repository", "src\app\Gah.Patterns.Todo.Repository\Gah.Patterns.ToDo.Repository.csproj", "{AA5D9909-B770-43FC-81E4-63641937C79B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gah.Patterns.Todo.Repository.Sql", "src\app\Gah.Patterns.Todo.Repository.Sql\Gah.Patterns.Todo.Repository.Sql.csproj", "{FBF8A951-0FA2-42DC-B80D-58823A22EF40}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gah.Patterns.ToDo.Repository.Sql", "src\app\Gah.Patterns.Todo.Repository.Sql\Gah.Patterns.ToDo.Repository.Sql.csproj", "{FBF8A951-0FA2-42DC-B80D-58823A22EF40}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gah.Patterns.ToDo.Api", "src\Gah.Patterns.ToDo.Api\Gah.Patterns.ToDo.Api.csproj", "{F0074FAF-266F-4BAD-840D-617EF61964CF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gah.Patterns.ToDo.Api", "src\Gah.Patterns.ToDo.Api\Gah.Patterns.ToDo.Api.csproj", "{F0074FAF-266F-4BAD-840D-617EF61964CF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gah.Patterns.ToDo.Api.Tests", "test\Gah.Patterns.ToDo.Api.Tests\Gah.Patterns.ToDo.Api.Tests.csproj", "{187A5460-9C4C-4565-A43A-39D373E2EFEC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gah.Patterns.ToDo.Api.Tests", "test\Gah.Patterns.ToDo.Api.Tests\Gah.Patterns.ToDo.Api.Tests.csproj", "{187A5460-9C4C-4565-A43A-39D373E2EFEC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "app", "app", "{F390DFE2-E10C-46C4-85F2-7DF5FF4E05DC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gah.Patterns.ToDo.Repository.Sql.Tests", "test\app\Gah.Patterns.ToDo.Repository.Sql.Tests\Gah.Patterns.ToDo.Repository.Sql.Tests.csproj", "{DB3DEBB8-6E9A-4F47-A417-C5A84B588250}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gah.Patterns.ToDo.Repository.Sql.Tests", "test\app\Gah.Patterns.ToDo.Repository.Sql.Tests\Gah.Patterns.ToDo.Repository.Sql.Tests.csproj", "{DB3DEBB8-6E9A-4F47-A417-C5A84B588250}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,6 +1,6 @@
-﻿namespace Gah.Patterns.Todo.Repository.Sql.Configuration
+﻿namespace Gah.Patterns.ToDo.Repository.Sql.Configuration
 {
-    using Gah.Patterns.Todo.Domain;
+    using Gah.Patterns.ToDo.Domain;
 
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;

@@ -3,7 +3,7 @@
     using System;
     using System.Threading.Tasks;
 
-    using Gah.Patterns.Todo.Repository.Sql.Data;
+    using Gah.Patterns.ToDo.Repository.Sql.Data;
 
     using Microsoft.Data.Sqlite;
     using Microsoft.EntityFrameworkCore;

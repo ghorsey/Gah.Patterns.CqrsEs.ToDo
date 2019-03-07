@@ -37,9 +37,9 @@
   </ItemGroup>
     
   <ItemGroup>
-    <ProjectReference Include="..\app\Gah.Patterns.Todo.Domain\Gah.Patterns.Todo.Domain.csproj" />
-    <ProjectReference Include="..\app\Gah.Patterns.Todo.Repository.Sql\Gah.Patterns.Todo.Repository.Sql.csproj" />
-    <ProjectReference Include="..\app\Gah.Patterns.Todo.Repository\Gah.Patterns.Todo.Repository.csproj" />
+    <ProjectReference Include="..\app\Gah.Patterns.Todo.Domain\Gah.Patterns.ToDo.Domain.csproj" />
+    <ProjectReference Include="..\app\Gah.Patterns.Todo.Repository.Sql\Gah.Patterns.ToDo.Repository.Sql.csproj" />
+    <ProjectReference Include="..\app\Gah.Patterns.Todo.Repository\Gah.Patterns.ToDo.Repository.csproj" />
     <ProjectReference Include="..\blocks\Gah.Blocks.CqrsEs\Gah.Blocks.CqrsEs.csproj" />
   </ItemGroup>
 

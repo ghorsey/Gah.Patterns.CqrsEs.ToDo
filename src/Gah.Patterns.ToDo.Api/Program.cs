@@ -3,7 +3,7 @@
     using System;
     using System.Diagnostics.CodeAnalysis;
 
-    using Gah.Patterns.Todo.Repository.Sql.Data;
+    using Gah.Patterns.ToDo.Repository.Sql.Data;
 
     using Microsoft.AspNetCore;
     using Microsoft.AspNetCore.Hosting;

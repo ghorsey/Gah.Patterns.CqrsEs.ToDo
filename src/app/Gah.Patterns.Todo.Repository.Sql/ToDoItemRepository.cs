@@ -1,12 +1,12 @@
-﻿namespace Gah.Patterns.Todo.Repository.Sql
+﻿namespace Gah.Patterns.ToDo.Repository.Sql
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
-    using Gah.Patterns.Todo.Domain;
-    using Gah.Patterns.Todo.Repository.Sql.Data;
+    using Gah.Patterns.ToDo.Domain;
+    using Gah.Patterns.ToDo.Repository.Sql.Data;
 
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Logging;

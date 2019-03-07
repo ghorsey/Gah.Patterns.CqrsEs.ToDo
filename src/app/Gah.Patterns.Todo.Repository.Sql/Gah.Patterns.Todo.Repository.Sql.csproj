@@ -32,8 +32,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Gah.Patterns.Todo.Domain\Gah.Patterns.Todo.Domain.csproj" />
-    <ProjectReference Include="..\Gah.Patterns.Todo.Repository\Gah.Patterns.Todo.Repository.csproj" />
+    <ProjectReference Include="..\Gah.Patterns.Todo.Domain\Gah.Patterns.ToDo.Domain.csproj" />
+    <ProjectReference Include="..\Gah.Patterns.Todo.Repository\Gah.Patterns.ToDo.Repository.csproj" />
   </ItemGroup>
 
   <ItemGroup>
