@@ -1,10 +1,14 @@
 ﻿namespace Gah.Patterns.ToDo.Api
 {
+    using System;
     using System.Diagnostics.CodeAnalysis;
+
+    using Gah.Patterns.Todo.Repository.Sql.Data;
 
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Newtonsoft.Json;
@@ -36,14 +40,16 @@
         /// <param name="services">The services.</param>
         public void ConfigureServices(IServiceCollection services)
         {
-            ////services.AddDbContext<ApplicationDbContext>(
-            ////    options => options.UseSqlServer(
-            ////        this.Configuration.GetConnectionString("DefaultConnection"),
-            ////        b =>
-            ////            {
-            ////                b.MigrationsAssembly("Gah.Patterns.Todo.Repository.Sql");
-            ////                b.EnableRetryOnFailure(10, TimeSpan.FromSeconds(30), null);
-            ////            }));
+            const string ConnectionString = @"Data Source=(LocalDb)\MSSQLLocalDB;database=SampleCQRSES;trusted_connection=yes;";
+
+            services.AddDbContext<ApplicationDbContext>(
+                options => options.UseSqlServer(
+                    ConnectionString,
+                    b =>
+                        {
+                            b.MigrationsAssembly("Gah.Patterns.Todo.Repository.Sql");
+                            b.EnableRetryOnFailure(10, TimeSpan.FromSeconds(30), null);
+                        }));
 
             services.AddMvc()
                 .AddJsonOptions(options => options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore)
