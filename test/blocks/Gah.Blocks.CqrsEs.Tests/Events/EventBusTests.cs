@@ -48,7 +48,7 @@
         /// Implements the <see cref="Gah.Blocks.CqrsEs.Events.IEvent" />
         /// </summary>
         /// <seealso cref="Gah.Blocks.CqrsEs.Events.IEvent" />
-        private class EventStub : IEvent
+        private class EventStub : BasicEvent
         {
         }
     }
