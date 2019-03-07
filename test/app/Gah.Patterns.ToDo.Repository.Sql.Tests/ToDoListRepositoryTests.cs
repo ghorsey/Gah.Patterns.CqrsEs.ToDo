@@ -18,6 +18,9 @@ namespace Gah.Patterns.ToDo.Repository.Sql.Tests
     /// </summary>
     public class ToDoListRepositoryTests : SqliteTests
     {
+        /// <summary>
+        /// The lists
+        /// </summary>
         private readonly List<ToDoList> lists = new List<ToDoList>
                                                     {
                                                         new ToDoList(
@@ -45,7 +48,7 @@ namespace Gah.Patterns.ToDo.Repository.Sql.Tests
         [Fact]
         public async Task CreateListAsync()
         {
-            var loggerMock = new Mock<ILogger>(MockBehavior.Loose);
+            var loggerMock = new Mock<ILogger<ToDoListRepository>>(MockBehavior.Loose);
 
             await this.RunTestAsync(
                 async (context) =>
@@ -73,7 +76,7 @@ namespace Gah.Patterns.ToDo.Repository.Sql.Tests
         [Fact]
         public async Task FetchListTestAsync()
         {
-            var loggerMock = new Mock<ILogger>(MockBehavior.Loose);
+            var loggerMock = new Mock<ILogger<ToDoListRepository>>(MockBehavior.Loose);
 
             await this.RunTestAsync(
                 async (context) =>
@@ -108,7 +111,7 @@ namespace Gah.Patterns.ToDo.Repository.Sql.Tests
         [Fact]
         public async Task UpdateListAsync()
         {
-            var loggerMock = new Mock<ILogger>(MockBehavior.Loose);
+            var loggerMock = new Mock<ILogger<ToDoListRepository>>(MockBehavior.Loose);
 
             await this.RunTestAsync(
                 async (context) =>
