@@ -1,9 +1,19 @@
 ﻿namespace Gah.Patterns.ToDo.Api
 {
     using System;
+    using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
 
+    using Gah.Blocks.CqrsEs.Queries;
+
+    // ReSharper disable once StyleCop.SA1210
+    using Gah.Patterns.ToDo.Api.Models.Queries.Lists;
+    using Gah.Patterns.Todo.Domain;
+    using Gah.Patterns.Todo.Repository;
+    using Gah.Patterns.Todo.Repository.Sql;
     using Gah.Patterns.Todo.Repository.Sql.Data;
+
+    using MediatR;
 
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -68,6 +78,20 @@
                 });
 
             services.AddSwagger();
+
+            // Add mediator
+            services.AddScoped<IMediator, Mediator>();
+            services.AddTransient<ServiceFactory>(sp => sp.GetService);
+
+            // Add Repositories
+            services.AddScoped<ITodoListRepository, ToDoListRepository>();
+            services.AddScoped<IToDoItemRepository, ToDoItemRepository>();
+
+            // Add CQRS
+            services.AddScoped<IQueryBus, QueryBus>();
+
+            services
+                .AddScoped<IRequestHandler<FindAllListsQuery, List<ToDoList>>, ListsQueryHandler>();
         }
 
         /// <summary>

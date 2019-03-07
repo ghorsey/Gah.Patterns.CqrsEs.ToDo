@@ -36,7 +36,7 @@
         /// </summary>
         /// <param name="context">The context.</param>
         /// <param name="logger">The logger.</param>
-        public ToDoItemRepository(ApplicationDbContext context, ILogger logger)
+        public ToDoItemRepository(ApplicationDbContext context, ILogger<ToDoItemRepository> logger)
         {
             this.context = context;
             this.entities = context.ToDoItems;

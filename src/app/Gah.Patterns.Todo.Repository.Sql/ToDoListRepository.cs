@@ -36,7 +36,7 @@ namespace Gah.Patterns.Todo.Repository.Sql
         /// </summary>
         /// <param name="context">The context.</param>
         /// <param name="logger">The logger.</param>
-        public ToDoListRepository(ApplicationDbContext context, ILogger logger)
+        public ToDoListRepository(ApplicationDbContext context, ILogger<ToDoListRepository> logger)
         {
             this.context = context;
             this.logger = logger;
