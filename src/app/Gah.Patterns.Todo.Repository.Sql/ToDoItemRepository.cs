@@ -75,7 +75,9 @@
         public async Task UpdateItemAsync(ToDoItem item)
         {
             this.logger.LogDebug("Updating item {@item}", item);
-            this.entities.Update(item);
+            var toDelete = await this.entities.FirstOrDefaultAsync(_ => _.Id == item.Id);
+            this.entities.Remove(toDelete);
+            await this.entities.AddAsync(item);
 
             await this.context.SaveChangesAsync();
         }

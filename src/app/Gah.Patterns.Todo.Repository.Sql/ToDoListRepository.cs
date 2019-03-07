@@ -93,7 +93,11 @@ namespace Gah.Patterns.Todo.Repository.Sql
         public async Task UpdateListAsync(ToDoList toDoList)
         {
             this.logger.LogDebug("Updating the task {@list}", toDoList);
-            this.entities.Update(toDoList);
+
+            var toDelete = await this.FindListAsync(toDoList.Id);
+            this.entities.Remove(toDelete);
+
+            await this.entities.AddAsync(toDoList);
 
             await this.context.SaveChangesAsync();
         }
