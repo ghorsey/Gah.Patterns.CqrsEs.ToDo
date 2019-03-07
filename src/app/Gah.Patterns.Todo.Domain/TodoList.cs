@@ -17,7 +17,7 @@ namespace Gah.Patterns.Todo.Domain
         /// <param name="totalPending">The total pending.</param>
         /// <param name="updated">The updated.</param>
         /// <param name="created">The created.</param>
-        public ToDoList(Guid id, string title, int totalItems, int totalCompleted, int totalPending, DateTime updated, DateTime? created)
+        public ToDoList(Guid id, string title, int totalItems, int totalCompleted, int totalPending, DateTime updated, DateTime created)
         {
             this.Id = id;
             this.Title = title;
@@ -25,7 +25,7 @@ namespace Gah.Patterns.Todo.Domain
             this.TotalCompleted = totalCompleted;
             this.TotalPending = totalPending;
             this.Updated = updated;
-            this.Created = created ?? updated;
+            this.Created = created;
         }
 
         /// <summary>

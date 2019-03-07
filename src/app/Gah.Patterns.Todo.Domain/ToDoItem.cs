@@ -16,14 +16,14 @@
         /// <param name="isDone">if set to <c>true</c> [is done].</param>
         /// <param name="updated">The updated.</param>
         /// <param name="created">The created.</param>
-        public ToDoItem(Guid id, Guid listId, string title, bool isDone, DateTime updated, DateTime? created)
+        public ToDoItem(Guid id, Guid listId, string title, bool isDone, DateTime updated, DateTime created)
         {
             this.Id = id;
             this.ListId = listId;
             this.Title = title;
             this.IsDone = isDone;
             this.Updated = updated;
-            this.Created = created ?? updated;
+            this.Created = created;
         }
 
         /// <summary>
