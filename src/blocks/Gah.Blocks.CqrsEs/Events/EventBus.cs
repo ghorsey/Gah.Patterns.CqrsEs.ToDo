@@ -44,7 +44,7 @@
         /// <param name="events">The events.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>A/an <c>Task</c>.</returns>
-        public async Task RaiseAsync<TEvent>(IEnumerable<TEvent> events, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task PublishAsync<TEvent>(IEnumerable<TEvent> events, CancellationToken cancellationToken = default(CancellationToken))
             where TEvent : IEvent
         {
             var eventList = events.ToList();

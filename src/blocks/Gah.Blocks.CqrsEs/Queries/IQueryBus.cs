@@ -16,7 +16,7 @@
         /// <param name="query">The query.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>A/an <c>Task&lt;TResponse&gt;</c>.</returns>
-        Task<TResponse> Execute<TQuery, TResponse>(TQuery query, CancellationToken cancellationToken = default(CancellationToken))
+        Task<TResponse> ExecuteAsync<TQuery, TResponse>(TQuery query, CancellationToken cancellationToken = default(CancellationToken))
             where TQuery : IQuery<TResponse>;
     }
 }

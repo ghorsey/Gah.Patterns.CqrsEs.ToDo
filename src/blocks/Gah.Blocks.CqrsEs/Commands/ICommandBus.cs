@@ -15,7 +15,7 @@
         /// <param name="command">The command.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>A/an <c>Task</c>.</returns>
-        Task Execute<TCommand>(TCommand command, CancellationToken cancellationToken = default(CancellationToken))
+        Task ExecuteAsync<TCommand>(TCommand command, CancellationToken cancellationToken = default(CancellationToken))
             where TCommand : ICommand;
     }
 }

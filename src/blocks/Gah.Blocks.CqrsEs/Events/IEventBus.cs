@@ -16,7 +16,7 @@
         /// <param name="events">The events.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>A/an <c>Task</c>.</returns>
-        Task RaiseAsync<TEvent>(IEnumerable<TEvent> events, CancellationToken cancellationToken = default(CancellationToken))
+        Task PublishAsync<TEvent>(IEnumerable<TEvent> events, CancellationToken cancellationToken = default(CancellationToken))
             where TEvent : IEvent;
     }
 }

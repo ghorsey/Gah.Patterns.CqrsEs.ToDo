@@ -40,7 +40,7 @@
         /// <param name="command">The command.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>A/an <c>Task</c>.</returns>
-        public Task Execute<TCommand>(TCommand command, CancellationToken cancellationToken = default(CancellationToken))
+        public Task ExecuteAsync<TCommand>(TCommand command, CancellationToken cancellationToken = default(CancellationToken))
             where TCommand : ICommand
         {
             this.logger.LogDebug("Executing {@command}", command);
