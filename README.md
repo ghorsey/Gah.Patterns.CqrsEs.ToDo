@@ -2,7 +2,7 @@
 
 A very simple list management app.
 
-**List (Query Model)**
+**ToDoList (Query Model)**
 
 | Property       | Type     |
 | -------------- | -------- |
@@ -14,7 +14,7 @@ A very simple list management app.
 | Created        | DateTime |
 | Updated        | DateTime |
 
-**Item (Query Model)**
+**ToDoItem (Query Model)**
 
 | Property | Type     |
 | -------- | -------- |
