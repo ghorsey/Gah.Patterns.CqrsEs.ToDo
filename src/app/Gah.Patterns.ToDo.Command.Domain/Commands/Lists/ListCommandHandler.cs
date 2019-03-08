@@ -4,6 +4,7 @@
     using System.Threading.Tasks;
     using Gah.Blocks.CqrsEs.Commands;
     using Gah.Blocks.CqrsEs.Events;
+    using Gah.Patterns.ToDo.Command.Domain.Events;
     using MediatR;
     using Microsoft.Extensions.Logging;
 
@@ -43,11 +44,19 @@
         /// <param name="request">The request.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>A/an <c>Task&lt;Unit&gt;</c>.</returns>
-        public Task<Unit> Handle(CreateListCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(CreateListCommand request, CancellationToken cancellationToken)
         {
+            this.logger.LogDebug("Got command {@event}", request);
+
             // todo: this method should be trying to load the list from the event stream, then verifying that it
             // doesn't already exist... it must be a new object....
-            return Task.FromResult(Unit.Value);
+            await this.eventBus.PublishAsync(
+                new[]
+                {
+                    new ListCreated(request.Id, request.Title)
+                },
+                cancellationToken);
+            return Unit.Value;
         }
     }
 }
