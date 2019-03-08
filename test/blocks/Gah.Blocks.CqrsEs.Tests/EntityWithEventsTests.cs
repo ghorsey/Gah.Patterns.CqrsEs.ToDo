@@ -28,10 +28,11 @@ namespace Gah.Blocks.CqrsEs.Tests
 
         /// <summary>
         /// Class Stub.
-        /// Implements the <see cref="EntityWithEvents{TId, TEvent}" />
+        /// Implements the <see cref="AggregateWithEvents{TId}" />
+        /// Implements the <see cref="Gah.Blocks.CqrsEs.AggregateWithEvents{Guid}" />
         /// </summary>
-        /// <seealso cref="EntityWithEvents{TId, TEvent}" />
-        private class Stub : EntityWithEvents<Guid, IEvent>
+        /// <seealso cref="Gah.Blocks.CqrsEs.AggregateWithEvents{Guid}" />
+        private class Stub : AggregateWithEvents<Guid>
         {
             /// <summary>
             /// Initializes a new instance of the <see cref="Stub" /> class.
