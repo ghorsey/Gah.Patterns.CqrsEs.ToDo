@@ -4,6 +4,7 @@
 
     using Gah.Blocks.CqrsEs.Queries;
     using Gah.Patterns.ToDo.Domain;
+    using Gah.Patterns.ToDo.Domain.Query;
 
     /// <summary>
     /// Class <c>FindAllListsQuery</c>.

@@ -22,7 +22,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gah.Blocks.CqrsEs.Tests", "
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "app", "app", "{33EFC67F-6ABD-4D14-99E9-FF7B7FFD8309}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gah.Patterns.ToDo.Domain", "src\app\Gah.Patterns.Todo.Domain\Gah.Patterns.ToDo.Domain.csproj", "{5A24DE65-4D30-4857-8837-2C49D8818DCA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gah.Patterns.ToDo.Domain.Query", "src\app\Gah.Patterns.Todo.Domain\Gah.Patterns.ToDo.Domain.Query.csproj", "{5A24DE65-4D30-4857-8837-2C49D8818DCA}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gah.Patterns.ToDo.Repository", "src\app\Gah.Patterns.Todo.Repository\Gah.Patterns.ToDo.Repository.csproj", "{AA5D9909-B770-43FC-81E4-63641937C79B}"
 EndProject

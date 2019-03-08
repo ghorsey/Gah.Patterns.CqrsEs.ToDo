@@ -31,7 +31,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Gah.Patterns.Todo.Domain\Gah.Patterns.ToDo.Domain.csproj" />
+    <ProjectReference Include="..\Gah.Patterns.Todo.Domain\Gah.Patterns.ToDo.Domain.Query.csproj" />
   </ItemGroup>
 
 </Project>

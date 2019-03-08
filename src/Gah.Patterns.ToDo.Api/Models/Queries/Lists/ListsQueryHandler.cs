@@ -6,6 +6,7 @@
 
     using Gah.Blocks.CqrsEs.Queries;
     using Gah.Patterns.ToDo.Domain;
+    using Gah.Patterns.ToDo.Domain.Query;
     using Gah.Patterns.ToDo.Repository;
 
     using Microsoft.Extensions.Logging;

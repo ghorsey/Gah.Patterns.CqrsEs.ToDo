@@ -42,7 +42,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\src\app\Gah.Patterns.Todo.Domain\Gah.Patterns.ToDo.Domain.csproj" />
+    <ProjectReference Include="..\..\..\src\app\Gah.Patterns.Todo.Domain\Gah.Patterns.ToDo.Domain.Query.csproj" />
     <ProjectReference Include="..\..\..\src\app\Gah.Patterns.Todo.Repository.Sql\Gah.Patterns.ToDo.Repository.Sql.csproj" />
     <ProjectReference Include="..\..\..\src\app\Gah.Patterns.Todo.Repository\Gah.Patterns.ToDo.Repository.csproj" />
   </ItemGroup>

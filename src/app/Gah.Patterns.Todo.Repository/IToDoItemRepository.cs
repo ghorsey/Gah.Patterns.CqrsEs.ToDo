@@ -5,6 +5,7 @@
     using System.Threading.Tasks;
 
     using Gah.Patterns.ToDo.Domain;
+    using Gah.Patterns.ToDo.Domain.Query;
 
     /// <summary>
     /// Interface <c>IToDoItemRepository</c>

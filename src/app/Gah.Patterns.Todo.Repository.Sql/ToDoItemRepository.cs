@@ -6,6 +6,7 @@
     using System.Threading.Tasks;
 
     using Gah.Patterns.ToDo.Domain;
+    using Gah.Patterns.ToDo.Domain.Query;
     using Gah.Patterns.ToDo.Repository.Sql.Data;
 
     using Microsoft.EntityFrameworkCore;

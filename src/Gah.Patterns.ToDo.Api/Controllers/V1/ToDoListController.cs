@@ -1,5 +1,6 @@
 ﻿namespace Gah.Patterns.ToDo.Api.Controllers.V1
 {
+    using System;
     using System.Collections.Generic;
     using System.Net;
     using System.Threading.Tasks;
@@ -9,6 +10,7 @@
     // ReSharper disable once StyleCop.SA1210
     using Gah.Patterns.ToDo.Api.Models.Queries.Lists;
     using Gah.Patterns.ToDo.Domain;
+    using Gah.Patterns.ToDo.Domain.Query;
 
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
@@ -19,7 +21,7 @@
     [ApiController]
     [ApiVersion("1.0")]
     [Route("v{version:apiVersion}")]
-    public class ToDoListController
+    public class ToDoListController : ControllerBase
     {
         /// <summary>
         /// The query bus
@@ -49,14 +51,24 @@
         /// <returns>A/an <c>Task&lt;Result&lt;List&lt;ToDoList&gt;&gt;&gt;</c>.</returns>
         [HttpGet("")]
         [ProducesResponseType(typeof(Result<List<ToDoList>>), (int)HttpStatusCode.OK)]
-        public async Task<Result<List<ToDoList>>> GetAll(string title)
+        public async Task<IActionResult> GetAll(string title)
         {
             this.logger.LogDebug("Looking up lists with title: '{title}'", title);
             var result =
                 await this.queryBus.ExecuteAsync<FindAllListsQuery, List<ToDoList>>(
                     new FindAllListsQuery(title));
 
-            return result.MakeSuccessfulResult();
+            return this.Ok(result.MakeSuccessfulResult());
+        }
+
+        /// <summary>
+        /// Creates this instance.
+        /// </summary>
+        /// <returns>A/an <c>Task&lt;IActionResult&gt;</c>.</returns>
+        [HttpPost("")]
+        public Task<IActionResult> Create()
+        {
+            throw new NotImplementedException();
         }
     }
 }

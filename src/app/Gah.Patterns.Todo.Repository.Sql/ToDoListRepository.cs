@@ -6,6 +6,7 @@ namespace Gah.Patterns.ToDo.Repository.Sql
     using System.Threading.Tasks;
 
     using Gah.Patterns.ToDo.Domain;
+    using Gah.Patterns.ToDo.Domain.Query;
     using Gah.Patterns.ToDo.Repository;
     using Gah.Patterns.ToDo.Repository.Sql.Data;
 

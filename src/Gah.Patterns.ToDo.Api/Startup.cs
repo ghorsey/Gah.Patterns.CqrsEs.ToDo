@@ -7,6 +7,7 @@
     using Gah.Blocks.CqrsEs.Queries;
     using Gah.Patterns.ToDo.Api.Models.Queries.Lists;
     using Gah.Patterns.ToDo.Domain;
+    using Gah.Patterns.ToDo.Domain.Query;
     using Gah.Patterns.ToDo.Repository;
     using Gah.Patterns.ToDo.Repository.Sql;
     using Gah.Patterns.ToDo.Repository.Sql.Data;

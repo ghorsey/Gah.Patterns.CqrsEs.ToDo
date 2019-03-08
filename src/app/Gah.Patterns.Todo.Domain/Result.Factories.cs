@@ -1,4 +1,4 @@
-﻿namespace Gah.Patterns.ToDo.Domain
+﻿namespace Gah.Patterns.ToDo.Domain.Query
 {
     /// <summary>
     /// The API Result object factories

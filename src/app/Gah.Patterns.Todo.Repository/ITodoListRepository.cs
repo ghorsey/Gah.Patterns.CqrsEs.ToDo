@@ -5,6 +5,7 @@ namespace Gah.Patterns.ToDo.Repository
     using System.Threading.Tasks;
 
     using Gah.Patterns.ToDo.Domain;
+    using Gah.Patterns.ToDo.Domain.Query;
 
     /// <summary>
     /// Basic Class

@@ -5,6 +5,7 @@ namespace Gah.Patterns.ToDo.Repository.Sql.Tests
     using System.Threading.Tasks;
 
     using Gah.Patterns.ToDo.Domain;
+    using Gah.Patterns.ToDo.Domain.Query;
     using Gah.Patterns.ToDo.Repository.Sql;
 
     using Microsoft.Extensions.Logging;
