@@ -1,4 +1,4 @@
-﻿namespace Gah.Patterns.ToDo.Domain.Query
+﻿namespace Gah.Patterns.ToDo.Query.Domain
 {
     /// <summary>
     /// The API Result object factories
@@ -22,7 +22,7 @@
         /// <summary>
         /// Makes the unsuccessful result.
         /// </summary>
-        /// <typeparam name="T">The type of the api result value</typeparam>
+        /// <typeparam name="T">The type of the API result value</typeparam>
         /// <param name="value">The value.</param>
         /// <returns>An unsuccessful API result object.</returns>
         /// <remarks>The variation will set both the value and message with the same content</remarks>

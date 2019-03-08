@@ -1,4 +1,4 @@
-﻿namespace Gah.Patterns.ToDo.Repository.Sql.Data
+﻿namespace Gah.Patterns.ToDo.Query.Repository.Sql.Data
 {
     using System.Threading.Tasks;
 

@@ -3,11 +3,8 @@ namespace Gah.Patterns.ToDo.Repository.Sql.Tests
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
-
-    using Gah.Patterns.ToDo.Domain;
-    using Gah.Patterns.ToDo.Domain.Query;
-    using Gah.Patterns.ToDo.Repository.Sql;
-
+    using Gah.Patterns.ToDo.Query.Domain;
+    using Gah.Patterns.ToDo.Query.Repository.Sql;
     using Microsoft.Extensions.Logging;
 
     using Moq;

@@ -1,8 +1,7 @@
-﻿namespace Gah.Patterns.ToDo.Repository.Sql.Data
+﻿namespace Gah.Patterns.ToDo.Query.Repository.Sql.Data
 {
-    using Gah.Patterns.ToDo.Domain;
-    using Gah.Patterns.ToDo.Domain.Query;
-    using Gah.Patterns.ToDo.Repository.Sql.Configuration;
+    using Gah.Patterns.ToDo.Query.Domain;
+    using Gah.Patterns.ToDo.Query.Repository.Sql.Configuration;
 
     using Microsoft.EntityFrameworkCore;
 

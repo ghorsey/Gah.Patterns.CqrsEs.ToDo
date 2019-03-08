@@ -1,4 +1,4 @@
-﻿namespace Gah.Patterns.ToDo.Domain.Query
+﻿namespace Gah.Patterns.ToDo.Query.Domain
 {
     /// <summary>
     /// The standard API result wrapper

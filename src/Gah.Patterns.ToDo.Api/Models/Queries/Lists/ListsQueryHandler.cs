@@ -5,10 +5,8 @@
     using System.Threading.Tasks;
 
     using Gah.Blocks.CqrsEs.Queries;
-    using Gah.Patterns.ToDo.Domain;
-    using Gah.Patterns.ToDo.Domain.Query;
-    using Gah.Patterns.ToDo.Repository;
-
+    using Gah.Patterns.ToDo.Query.Domain;
+    using Gah.Patterns.ToDo.Query.Repository;
     using Microsoft.Extensions.Logging;
 
     /// <summary>

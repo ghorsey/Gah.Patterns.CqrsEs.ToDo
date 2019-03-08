@@ -1,11 +1,10 @@
-﻿namespace Gah.Patterns.ToDo.Repository
+﻿namespace Gah.Patterns.ToDo.Query.Repository
 {
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
-    using Gah.Patterns.ToDo.Domain;
-    using Gah.Patterns.ToDo.Domain.Query;
+    using Gah.Patterns.ToDo.Query.Domain;
 
     /// <summary>
     /// Interface <c>IToDoItemRepository</c>

@@ -1,9 +1,7 @@
 ﻿namespace Gah.Patterns.ToDo.Api.Controllers.V1
 {
     using System.Net;
-
-    using Gah.Patterns.ToDo.Domain;
-    using Gah.Patterns.ToDo.Domain.Query;
+    using Gah.Patterns.ToDo.Query.Domain;
 
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;

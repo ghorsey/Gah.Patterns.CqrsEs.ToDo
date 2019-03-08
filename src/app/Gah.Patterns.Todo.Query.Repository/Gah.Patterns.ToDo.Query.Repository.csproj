@@ -12,7 +12,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <WarningsAsErrors />
-    <DocumentationFile>Gah.Patterns.Todo.Repository.xml</DocumentationFile>
+    <DocumentationFile>Gah.Patterns.Todo.Query.Repository.xml</DocumentationFile>
     <CodeAnalysisRuleSet>StyleCop.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
@@ -31,7 +31,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Gah.Patterns.Todo.Domain\Gah.Patterns.ToDo.Domain.Query.csproj" />
+    <ProjectReference Include="..\Gah.Patterns.Todo.Query.Domain\Gah.Patterns.ToDo.Query.Domain.csproj" />
   </ItemGroup>
 
 </Project>

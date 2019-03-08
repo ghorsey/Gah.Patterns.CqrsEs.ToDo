@@ -3,8 +3,7 @@
     using System.Collections.Generic;
 
     using Gah.Blocks.CqrsEs.Queries;
-    using Gah.Patterns.ToDo.Domain;
-    using Gah.Patterns.ToDo.Domain.Query;
+    using Gah.Patterns.ToDo.Query.Domain;
 
     /// <summary>
     /// Class <c>FindAllListsQuery</c>.

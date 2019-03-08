@@ -1,4 +1,4 @@
-﻿namespace Gah.Patterns.ToDo.Repository.Sql.Migrations
+﻿namespace Gah.Patterns.ToDo.Query.Repository.Sql.Migrations
 {
     using System;
 

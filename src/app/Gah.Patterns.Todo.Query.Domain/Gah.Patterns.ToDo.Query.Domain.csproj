@@ -12,7 +12,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <WarningsAsErrors />
-    <DocumentationFile>Gah.Patterns.Todo.Domain.xml</DocumentationFile>
+    <DocumentationFile>Gah.Patterns.Todo.Query.Domaiy.xml</DocumentationFile>
     <CodeAnalysisRuleSet>StyleCop.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 

@@ -7,10 +7,8 @@
 
     using Gah.Blocks.CqrsEs.Queries;
 
-    // ReSharper disable once StyleCop.SA1210
     using Gah.Patterns.ToDo.Api.Models.Queries.Lists;
-    using Gah.Patterns.ToDo.Domain;
-    using Gah.Patterns.ToDo.Domain.Query;
+    using Gah.Patterns.ToDo.Query.Domain;
 
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
