@@ -23,12 +23,12 @@
         /// Gets the identifier.
         /// </summary>
         /// <value>The identifier.</value>
-        internal Guid Id { get; }
+        public Guid Id { get; }
 
         /// <summary>
         /// Gets the title.
         /// </summary>
         /// <value>The title.</value>
-        internal string Title { get; }
+        public string Title { get; }
     }
 }

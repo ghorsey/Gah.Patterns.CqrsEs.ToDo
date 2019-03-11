@@ -17,11 +17,11 @@ namespace Gah.Blocks.CqrsEs.Tests
         [Fact]
         public void CreateEntityWithEventsTest()
         {
-            var id = Guid.NewGuid();
+            ////var id = Guid.NewGuid();
 
-            var e = new Stub(id);
+            var e = new Stub();
 
-            Assert.Equal(id, e.Id);
+            ////Assert.Equal(id, e.Id);
             Assert.NotNull(e.Events);
             Assert.Empty(e.Events);
         }
@@ -37,9 +37,7 @@ namespace Gah.Blocks.CqrsEs.Tests
             /// <summary>
             /// Initializes a new instance of the <see cref="Stub" /> class.
             /// </summary>
-            /// <param name="id">The identifier.</param>
-            public Stub(Guid id)
-                : base(id)
+            public Stub()
             {
             }
         }

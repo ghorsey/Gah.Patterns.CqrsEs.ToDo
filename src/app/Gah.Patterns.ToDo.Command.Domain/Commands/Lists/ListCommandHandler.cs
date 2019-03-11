@@ -1,9 +1,12 @@
 ﻿namespace Gah.Patterns.ToDo.Command.Domain.Commands.Lists
 {
+    using System;
+    using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
     using Gah.Blocks.CqrsEs.Commands;
     using Gah.Blocks.CqrsEs.Events;
+    using Gah.Blocks.CqrsEs.EventStore;
     using Gah.Patterns.ToDo.Command.Domain.Events;
     using MediatR;
     using Microsoft.Extensions.Logging;
@@ -18,24 +21,31 @@
         : ICommandHandler<CreateListCommand>
     {
         /// <summary>
+        /// The event store
+        /// </summary>
+        private readonly IEventStore eventStore;
+
+        /// <summary>
         /// The event bus
         /// </summary>
-        private IEventBus eventBus;
+        private readonly IEventBus eventBus;
 
         /// <summary>
         /// The logger
         /// </summary>
-        private ILogger logger;
+        private readonly ILogger logger;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ListCommandHandler"/> class.
+        /// Initializes a new instance of the <see cref="ListCommandHandler" /> class.
         /// </summary>
         /// <param name="eventBus">The event bus.</param>
+        /// <param name="eventStore">The event store.</param>
         /// <param name="logger">The logger.</param>
-        public ListCommandHandler(IEventBus eventBus, ILogger<ListCommandHandler> logger)
+        public ListCommandHandler(IEventBus eventBus, IEventStore eventStore, ILogger<ListCommandHandler> logger)
         {
             this.eventBus = eventBus;
             this.logger = logger;
+            this.eventStore = eventStore;
         }
 
         /// <summary>
@@ -48,12 +58,23 @@
         {
             this.logger.LogDebug("Got command {@event}", request);
 
-            // todo: this method should be trying to load the list from the event stream, then verifying that it
-            // doesn't already exist... it must be a new object....
+            var listCreated = new ListCreatedEvent(
+                request.Id,
+                request.Title,
+                DateTime.UtcNow,
+                DateTime.UtcNow);
+
+            var list = new ToDoList();
+            var eventResult = await this.eventStore.ReadAllForwardAsync(listCreated.Id.ToString());
+            list.Apply(eventResult.Events);
+            list.Apply(listCreated);
+
+            await this.eventStore.AppendToStreamAsync(list.Id.ToString(), 1, listCreated);
+
             await this.eventBus.PublishAsync(
                 new[]
                 {
-                    new ListCreated(request.Id, request.Title)
+                    listCreated
                 },
                 cancellationToken);
             return Unit.Value;

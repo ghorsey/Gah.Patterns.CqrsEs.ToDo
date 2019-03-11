@@ -8,17 +8,21 @@
     /// Implements the <see cref="Gah.Blocks.CqrsEs.Events.BasicEvent" />
     /// </summary>
     /// <seealso cref="Gah.Blocks.CqrsEs.Events.BasicEvent" />
-    public class ListCreated : BasicEvent
+    public class ListCreatedEvent : BasicEvent
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ListCreated"/> class.
+        /// Initializes a new instance of the <see cref="ListCreatedEvent" /> class.
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <param name="title">The title.</param>
-        public ListCreated(Guid id, string title)
+        /// <param name="updated">The updated.</param>
+        /// <param name="created">The created.</param>
+        public ListCreatedEvent(Guid id, string title, DateTime updated, DateTime created)
         {
             this.Id = id;
             this.Title = title;
+            this.Updated = updated;
+            this.Created = created;
         }
 
         /// <summary>
@@ -32,5 +36,17 @@
         /// </summary>
         /// <value>The title.</value>
         public string Title { get; private set; }
+
+        /// <summary>
+        /// Gets the updated.
+        /// </summary>
+        /// <value>The updated.</value>
+        public DateTime Updated { get; private set; }
+
+        /// <summary>
+        /// Gets the created.
+        /// </summary>
+        /// <value>The created.</value>
+        public DateTime Created { get; private set; }
     }
 }

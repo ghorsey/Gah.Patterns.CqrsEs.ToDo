@@ -4,10 +4,12 @@
     using System.Collections.Generic;
     using System.Net;
     using System.Threading.Tasks;
-
+    using Gah.Blocks.CqrsEs.Commands;
     using Gah.Blocks.CqrsEs.Queries;
 
     using Gah.Patterns.ToDo.Api.Models.Queries.Lists;
+    using Gah.Patterns.ToDo.Api.Models.ToDoList;
+    using Gah.Patterns.ToDo.Command.Domain.Commands.Lists;
     using Gah.Patterns.ToDo.Query.Domain;
 
     using Microsoft.AspNetCore.Mvc;
@@ -19,7 +21,7 @@
     [ApiController]
     [ApiVersion("1.0")]
     [Route("v{version:apiVersion}")]
-    public class ToDoListController : ControllerBase
+    public class ToDoListController : Controller
     {
         /// <summary>
         /// The query bus
@@ -27,18 +29,25 @@
         private readonly IQueryBus queryBus;
 
         /// <summary>
+        /// The command bus
+        /// </summary>
+        private readonly ICommandBus commandBus;
+
+        /// <summary>
         /// The logger
         /// </summary>
         private readonly ILogger logger;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ToDoListController" /> class.
+        /// Initializes a new instance of the <see cref="ToDoListController"/> class.
         /// </summary>
         /// <param name="queryBus">The query bus.</param>
+        /// <param name="commandBus">The command bus.</param>
         /// <param name="logger">The logger.</param>
-        public ToDoListController(IQueryBus queryBus, ILogger<ToDoListController> logger)
+        public ToDoListController(IQueryBus queryBus, ICommandBus commandBus, ILogger<ToDoListController> logger)
         {
             this.queryBus = queryBus;
+            this.commandBus = commandBus;
             this.logger = logger;
         }
 
@@ -60,13 +69,38 @@
         }
 
         /// <summary>
+        /// Gets the specified identifier.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>A/an <c>IActionResult</c>.</returns>
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetAsync(Guid id)
+        {
+            this.logger.LogDebug("Looking up a list by id {id}", id);
+
+            var result = await this.queryBus.ExecuteAsync<FindList, ToDoList>(new FindList(id));
+
+            return this.Ok(result.MakeSuccessfulResult());
+        }
+
+        /// <summary>
         /// Creates this instance.
         /// </summary>
+        /// <param name="info">The information.</param>
         /// <returns>A/an <c>Task&lt;IActionResult&gt;</c>.</returns>
         [HttpPost("")]
-        public Task<IActionResult> Create()
+        [ProducesResponseType(typeof(Result<string>), (int)HttpStatusCode.Created)]
+        public async Task<IActionResult> Create(CreateListInfo info)
         {
-            throw new NotImplementedException();
+            this.logger.LogDebug("Got request to create event titled {@eventInfo}", info);
+            var createCommand = new CreateListCommand(Guid.NewGuid(), info.Title);
+
+            await this.commandBus.ExecuteAsync(createCommand);
+
+            return this.CreatedAtAction(
+                nameof(this.GetAsync),
+                new { id = createCommand.Id },
+                "Hello".MakeSuccessfulResult());
         }
     }
 }

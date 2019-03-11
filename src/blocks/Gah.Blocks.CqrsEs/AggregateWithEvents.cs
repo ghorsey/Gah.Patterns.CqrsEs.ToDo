@@ -15,10 +15,8 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="AggregateWithEvents{TId}"/> class.
         /// </summary>
-        /// <param name="id">The identifier.</param>
-        protected AggregateWithEvents(TId id)
+        protected AggregateWithEvents()
         {
-            this.Id = id;
             this.Events = new Queue<IEvent>();
         }
 
@@ -33,5 +31,26 @@
         /// </summary>
         /// <value>The events.</value>
         public Queue<IEvent> Events { get; }
+
+        /// <summary>
+        /// Applies the specified event.
+        /// </summary>
+        /// <param name="event">The event.</param>
+        public void Apply(IEvent @event)
+        {
+            this.InvokeEventOptional(@event);
+        }
+
+        /// <summary>
+        /// Applies the specified events.
+        /// </summary>
+        /// <param name="events">The events.</param>
+        public void Apply(IEnumerable<IEvent> events)
+        {
+            foreach (var @event in events)
+            {
+                this.Apply(@event);
+            }
+        }
     }
 }

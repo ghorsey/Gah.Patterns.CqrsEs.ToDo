@@ -4,10 +4,13 @@ namespace Gah.Patterns.ToDo.Command.Domain
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using Gah.Blocks.CqrsEs;
+    using Gah.Blocks.CqrsEs.Events;
+    using Gah.Patterns.ToDo.Command.Domain.Events;
 
     /// <summary>
     /// Basic Class
-    /// </summary>
+    /// Implements the <see cref="AggregateWithEvents{TId}" /></summary>
+    /// <seealso cref="AggregateWithEvents{TId}" />
     public class ToDoList : AggregateWithEvents<Guid>
     {
         private readonly List<ToDoItem> items;
@@ -15,14 +18,8 @@ namespace Gah.Patterns.ToDo.Command.Domain
         /// <summary>
         /// Initializes a new instance of the <see cref="ToDoList"/> class.
         /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <param name="title">The title.</param>
-        public ToDoList(Guid id, string title)
-            : base(id)
+        public ToDoList()
         {
-            this.Title = title;
-            this.Created = DateTime.UtcNow;
-            this.Updated = DateTime.UtcNow;
             this.items = new List<ToDoItem>();
         }
 
@@ -48,10 +45,7 @@ namespace Gah.Patterns.ToDo.Command.Domain
         /// Gets the items.
         /// </summary>
         /// <value>The items.</value>
-        public ReadOnlyCollection<ToDoItem> Items
-        {
-            get { return this.items.AsReadOnly(); }
-        }
+        public ReadOnlyCollection<ToDoItem> Items => this.items.AsReadOnly();
 
         /// <summary>
         /// Adds the specified item.
@@ -69,6 +63,18 @@ namespace Gah.Patterns.ToDo.Command.Domain
         public void Remove(ToDoItem item)
         {
             this.items.Remove(item);
+        }
+
+        /// <summary>
+        /// Whens the specified @event.
+        /// </summary>
+        /// <param name="event">The event.</param>
+        private void When(ListCreatedEvent @event)
+        {
+            this.Title = @event.Title;
+            this.Id = @event.Id;
+            this.Created = @event.Created;
+            this.Updated = @event.Updated;
         }
     }
 }

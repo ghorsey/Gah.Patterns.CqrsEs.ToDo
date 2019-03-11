@@ -3,9 +3,15 @@
     using System;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
-
+    using Gah.Blocks.CqrsEs.Commands;
+    using Gah.Blocks.CqrsEs.Events;
+    using Gah.Blocks.CqrsEs.EventStore;
+    using Gah.Blocks.CqrsEs.EventStore.InMemory;
     using Gah.Blocks.CqrsEs.Queries;
+    using Gah.Patterns.ToDo.Api.Models.EventHandlers;
     using Gah.Patterns.ToDo.Api.Models.Queries.Lists;
+    using Gah.Patterns.ToDo.Command.Domain.Commands.Lists;
+    using Gah.Patterns.ToDo.Command.Domain.Events;
     using Gah.Patterns.ToDo.Query.Domain;
     using Gah.Patterns.ToDo.Query.Repository;
     using Gah.Patterns.ToDo.Query.Repository.Sql;
@@ -86,9 +92,19 @@
 
             // Add CQRS
             services.AddScoped<IQueryBus, QueryBus>();
+            services.AddScoped<ICommandBus, CommandBus>();
+            services.AddScoped<IEventBus, EventBus>();
+            services.AddSingleton<IEventStore, InMemoryEventStore>();
 
-            services
-                .AddScoped<IRequestHandler<FindAllListsQuery, List<ToDoList>>, ListsQueryHandler>();
+            // Query Handlers
+            services.AddScoped<IRequestHandler<FindAllListsQuery, List<ToDoList>>, ListsQueryHandler>();
+            services.AddScoped<IRequestHandler<FindList, ToDoList>, ListsQueryHandler>();
+
+            // Command Handlers
+            services.AddScoped<IRequestHandler<CreateListCommand, Unit>, ListCommandHandler>();
+
+            // Event Handlers
+            services.AddScoped<INotificationHandler<ListCreatedEvent>, ListEventHandlers>();
         }
 
         /// <summary>

@@ -22,7 +22,7 @@
                 c =>
                     {
                         c.IncludeXmlComments(GetXmlCommentsPath("Gah.Patterns.ToDo.Api.xml"));
-                        c.IncludeXmlComments(GetXmlCommentsPath("Gah.Patterns.Todo.Domain.xml"));
+                        c.IncludeXmlComments(GetXmlCommentsPath("Gah.Patterns.ToDo.Query.Domain.xml"));
                         c.DescribeAllEnumsAsStrings();
                         c.DocumentFilter<LowercaseDocumentFilter>();
                         c.SwaggerDoc(

@@ -38,6 +38,8 @@
     
   <ItemGroup>
     <ProjectReference Include="..\..\test\app\Gah.Patterns.ToDo.Repository.Sql.Tests\Gah.Patterns.ToDo.Repository.Sql.Tests.csproj" />
+    <ProjectReference Include="..\app\Gah.Patterns.ToDo.Command.Domain\Gah.Patterns.ToDo.Command.Domain.csproj" />
+    <ProjectReference Include="..\app\Gah.Patterns.Todo.Query.Domain\Gah.Patterns.ToDo.Query.Domain.csproj" />
     <ProjectReference Include="..\app\Gah.Patterns.Todo.Query.Repository.Sql\Gah.Patterns.ToDo.Query.Repository.Sql.csproj" />
     <ProjectReference Include="..\app\Gah.Patterns.Todo.Query.Repository\Gah.Patterns.ToDo.Query.Repository.csproj" />
     <ProjectReference Include="..\blocks\Gah.Blocks.CqrsEs\Gah.Blocks.CqrsEs.csproj" />
