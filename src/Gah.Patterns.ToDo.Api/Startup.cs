@@ -21,6 +21,7 @@
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.ApiExplorer;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
@@ -72,14 +73,15 @@
 
             services.AddRouting(options => options.LowercaseUrls = true);
 
-            services.AddApiVersioning(
-                options =>
-                {
-                    options.ReportApiVersions = true;
-                    options.AssumeDefaultVersionWhenUnspecified = true;
-                    options.DefaultApiVersion = new ApiVersion(1, 1);
-                });
+            services.AddApiVersioning();
+                ////options =>
+                ////{
+                ////    options.ReportApiVersions = true;
+                ////    options.AssumeDefaultVersionWhenUnspecified = true;
+                ////    options.DefaultApiVersion = new ApiVersion(1, 0);
+                ////});
 
+            services.AddVersionedApiExplorer(options => options.GroupNameFormat = "'v'VVV");
             services.AddSwagger();
 
             // Add mediator
