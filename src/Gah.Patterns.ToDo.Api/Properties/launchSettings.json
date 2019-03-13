@@ -17,7 +17,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "TS.TruckScheduler.Api": {
+    "Gah.Patterns.ToDo.Api": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "",

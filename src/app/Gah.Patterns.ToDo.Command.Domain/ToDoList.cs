@@ -4,7 +4,6 @@ namespace Gah.Patterns.ToDo.Command.Domain
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using Gah.Blocks.CqrsEs;
-    using Gah.Blocks.CqrsEs.Events;
     using Gah.Patterns.ToDo.Command.Domain.Events;
 
     /// <summary>
@@ -13,6 +12,9 @@ namespace Gah.Patterns.ToDo.Command.Domain
     /// <seealso cref="AggregateWithEvents{TId}" />
     public class ToDoList : AggregateWithEvents<Guid>
     {
+        /// <summary>
+        /// The items
+        /// </summary>
         private readonly List<ToDoItem> items;
 
         /// <summary>
@@ -69,11 +71,33 @@ namespace Gah.Patterns.ToDo.Command.Domain
         /// Whens the specified @event.
         /// </summary>
         /// <param name="event">The event.</param>
+        /// <exception cref="InvalidOperationException">Cannot Create an existing item</exception>
         private void When(ListCreatedEvent @event)
         {
+            if (!Guid.Empty.Equals(this.Id))
+            {
+                throw new InvalidOperationException("Cannot Create an existing item");
+            }
+
             this.Title = @event.Title;
             this.Id = @event.Id;
             this.Created = @event.Created;
+            this.Updated = @event.Updated;
+        }
+
+        /// <summary>
+        /// Whens the specified event.
+        /// </summary>
+        /// <param name="event">The event.</param>
+        /// <exception cref="InvalidOperationException">Cannot update a new List, it must be created</exception>
+        private void When(ListUpdatedEvent @event)
+        {
+            if (Guid.Empty.Equals(this.Id))
+            {
+                throw new InvalidOperationException("Cannot update a new List, it must be created");
+            }
+
+            this.Title = @event.Title;
             this.Updated = @event.Updated;
         }
     }

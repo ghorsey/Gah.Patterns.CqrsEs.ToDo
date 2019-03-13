@@ -3,13 +3,13 @@
     /// <summary>
     /// Class <c>CreateListInfo</c>.
     /// </summary>
-    public class CreateListInfo
+    public class ListInfo
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="CreateListInfo"/> class.
+        /// Initializes a new instance of the <see cref="ListInfo"/> class.
         /// </summary>
         /// <param name="title">The title.</param>
-        public CreateListInfo(string title)
+        public ListInfo(string title)
         {
             this.Title = title;
         }

@@ -5,8 +5,7 @@
     using System.Diagnostics.CodeAnalysis;
     using Gah.Blocks.CqrsEs.Commands;
     using Gah.Blocks.CqrsEs.Events;
-    using Gah.Blocks.CqrsEs.EventStore;
-    using Gah.Blocks.CqrsEs.EventStore.InMemory;
+    using Gah.Blocks.CqrsEs.EventStore.Sql.Configuration;
     using Gah.Blocks.CqrsEs.Queries;
     using Gah.Patterns.ToDo.Api.Models.EventHandlers;
     using Gah.Patterns.ToDo.Api.Models.Queries.Lists;
@@ -21,7 +20,6 @@
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Mvc.ApiExplorer;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
@@ -61,11 +59,22 @@
                     ConnectionString,
                     b =>
                         {
-                            b.MigrationsAssembly("Gah.Patterns.Todo.Repository.Sql");
+                            b.MigrationsAssembly("Gah.Patterns.ToDo.Query.Repository.Sql");
                             b.EnableRetryOnFailure(10, TimeSpan.FromSeconds(30), null);
                         }));
 
-            services.AddMvc()
+            // add ef core event store
+            services.AddEventStore(
+                options => options.ConfigureDbContext = db => db.UseSqlServer(
+                               ConnectionString,
+                               b =>
+                                   {
+                                       b.MigrationsAssembly("Gah.Patterns.ToDo.Api");
+                                       b.EnableRetryOnFailure(10, TimeSpan.FromSeconds(30), null);
+                                   }));
+
+            // fix an issue with version 3.1.2 of Microsoft.AspNetCore.Mvc.Versioning that does not support the latest routing strategy
+            services.AddMvc(options => options.EnableEndpointRouting = false)
                 .AddJsonOptions(options => options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore)
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
@@ -73,15 +82,16 @@
 
             services.AddRouting(options => options.LowercaseUrls = true);
 
-            services.AddApiVersioning();
-                ////options =>
-                ////{
-                ////    options.ReportApiVersions = true;
-                ////    options.AssumeDefaultVersionWhenUnspecified = true;
-                ////    options.DefaultApiVersion = new ApiVersion(1, 0);
-                ////});
+            services.AddApiVersioning(
+                options =>
+                {
+                    options.ReportApiVersions = true;
+                    options.AssumeDefaultVersionWhenUnspecified = true;
+                    options.DefaultApiVersion = new ApiVersion(1, 0);
+                });
 
             services.AddVersionedApiExplorer(options => options.GroupNameFormat = "'v'VVV");
+
             services.AddSwagger();
 
             // Add mediator
@@ -96,17 +106,18 @@
             services.AddScoped<IQueryBus, QueryBus>();
             services.AddScoped<ICommandBus, CommandBus>();
             services.AddScoped<IEventBus, EventBus>();
-            services.AddSingleton<IEventStore, InMemoryEventStore>();
 
             // Query Handlers
             services.AddScoped<IRequestHandler<FindAllListsQuery, List<ToDoList>>, ListsQueryHandler>();
             services.AddScoped<IRequestHandler<FindList, ToDoList>, ListsQueryHandler>();
 
             // Command Handlers
+            services.AddScoped<IRequestHandler<UpdateListCommand, Unit>, ListCommandHandler>();
             services.AddScoped<IRequestHandler<CreateListCommand, Unit>, ListCommandHandler>();
 
             // Event Handlers
             services.AddScoped<INotificationHandler<ListCreatedEvent>, ListEventHandlers>();
+            services.AddScoped<INotificationHandler<ListUpdatedEvent>, ListEventHandlers>();
         }
 
         /// <summary>

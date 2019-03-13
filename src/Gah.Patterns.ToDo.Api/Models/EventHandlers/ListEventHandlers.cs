@@ -1,6 +1,5 @@
 ﻿namespace Gah.Patterns.ToDo.Api.Models.EventHandlers
 {
-    using System;
     using System.Threading;
     using System.Threading.Tasks;
     using Gah.Blocks.CqrsEs.Events;
@@ -10,9 +9,11 @@
 
     /// <summary>
     /// Implements the <see cref="IEventHandler{ListCreatedEvent}" />
+    /// Implements the <see cref="IEventHandler{ListUpdated}" />
     /// </summary>
+    /// <seealso cref="IEventHandler{ListUpdated}" />
     /// <seealso cref="IEventHandler{ListCreatedEvent}" />
-    public class ListEventHandlers : IEventHandler<ListCreatedEvent>
+    public class ListEventHandlers : IEventHandler<ListCreatedEvent>, IEventHandler<ListUpdatedEvent>
     {
         /// <summary>
         /// The repository
@@ -54,6 +55,28 @@
                 notification.Created);
 
             await this.repository.CreateListAsync(list);
+        }
+
+        /// <summary>
+        /// Handles the specified notification.
+        /// </summary>
+        /// <param name="notification">The notification.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns>A/an <c>Task</c>.</returns>
+        public async Task Handle(ListUpdatedEvent notification, CancellationToken cancellationToken)
+        {
+            var list = await this.repository.FindListAsync(notification.Id);
+
+            var updated = new Query.Domain.ToDoList(
+                list.Id,
+                notification.Title,
+                list.TotalItems,
+                list.TotalCompleted,
+                list.TotalPending,
+                notification.Updated,
+                list.Created);
+
+            await this.repository.UpdateListAsync(updated);
         }
     }
 }

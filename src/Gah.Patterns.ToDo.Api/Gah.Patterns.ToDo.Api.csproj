@@ -44,6 +44,7 @@
     <ProjectReference Include="..\app\Gah.Patterns.Todo.Query.Domain\Gah.Patterns.ToDo.Query.Domain.csproj" />
     <ProjectReference Include="..\app\Gah.Patterns.Todo.Query.Repository.Sql\Gah.Patterns.ToDo.Query.Repository.Sql.csproj" />
     <ProjectReference Include="..\app\Gah.Patterns.Todo.Query.Repository\Gah.Patterns.ToDo.Query.Repository.csproj" />
+    <ProjectReference Include="..\blocks\Gah.Blocks.CqrsEs.EventStore.Sql\Gah.Blocks.CqrsEs.EventStore.Sql.csproj" />
     <ProjectReference Include="..\blocks\Gah.Blocks.CqrsEs\Gah.Blocks.CqrsEs.csproj" />
   </ItemGroup>
 

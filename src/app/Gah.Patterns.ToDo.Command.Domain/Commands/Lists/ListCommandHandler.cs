@@ -1,7 +1,6 @@
 ﻿namespace Gah.Patterns.ToDo.Command.Domain.Commands.Lists
 {
     using System;
-    using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
     using Gah.Blocks.CqrsEs.Commands;
@@ -13,12 +12,16 @@
 
     /// <summary>
     /// Class <c>ListCommandHandler</c>.
-    /// Implements the <see cref="Gah.Blocks.CqrsEs.Commands.ICommandHandler{CreateListCommand}" />
+    /// Implements the <see cref="ICommandHandler{CreateListCommand}" />
+    /// Implements the <see cref="ICommandHandler{CreateListCommand}" />
+    /// Implements the <see cref="ICommandHandler{UpdateListCommand}" />
     /// </summary>
-    /// <seealso cref="Gah.Blocks.CqrsEs.Commands.ICommandHandler{CreateListCommand}" />
-    /// <inheritdoc />
+    /// <seealso cref="ICommandHandler{CreateListCommand}" />
+    /// <seealso cref="ICommandHandler{UpdateListCommand}" />
+    /// <inheritdoc cref="ICommandHandler{TCommand}" />
     public class ListCommandHandler
-        : ICommandHandler<CreateListCommand>
+        : ICommandHandler<CreateListCommand>,
+          ICommandHandler<UpdateListCommand>
     {
         /// <summary>
         /// The event store
@@ -69,14 +72,53 @@
             list.Apply(eventResult.Events);
             list.Apply(listCreated);
 
-            await this.eventStore.AppendToStreamAsync(list.Id.ToString(), 1, listCreated);
+            this.logger.LogDebug("About to save version 1 of event {@event}", listCreated);
+            await this.eventStore.AppendToStreamAsync(list.Id.ToString(), 1, listCreated)
+                .ConfigureAwait(false);
 
-            await this.eventBus.PublishAsync(
-                new[]
-                {
-                    listCreated
-                },
-                cancellationToken);
+            await this.eventBus.PublishAsync(new[] { listCreated }, cancellationToken)
+                .ConfigureAwait(false);
+
+            return Unit.Value;
+        }
+
+        /// <summary>
+        /// Handles the specified request.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns>A/an <c>Task&lt;Unit&gt;</c>.</returns>
+        public async Task<Unit> Handle(
+            UpdateListCommand request,
+            CancellationToken cancellationToken)
+        {
+            this.logger.LogDebug("Got command {@event}", request);
+
+            var listUpdated = new ListUpdatedEvent(request.Id, request.Title, DateTime.UtcNow);
+
+            var eventResult = await this.eventStore.ReadAllForwardAsync(request.Id.ToString())
+                                  .ConfigureAwait(false);
+
+            var list = new ToDoList();
+
+            list.Apply(eventResult.Events);
+
+            list.Apply(listUpdated);
+
+            this.logger.LogDebug(
+                "Attempting to save the version {version} for event {@event}",
+                eventResult.NextEventNumber,
+                listUpdated);
+
+            await this.eventStore.AppendToStreamAsync(
+                    list.Id.ToString(),
+                    eventResult.NextEventNumber,
+                    listUpdated)
+                .ConfigureAwait(false);
+
+            await this.eventBus.PublishAsync(new[] { listUpdated }, cancellationToken)
+                .ConfigureAwait(false);
+
             return Unit.Value;
         }
     }

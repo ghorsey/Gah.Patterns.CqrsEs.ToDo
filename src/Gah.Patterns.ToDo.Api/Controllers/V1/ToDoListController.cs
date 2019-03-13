@@ -74,6 +74,7 @@
         /// <param name="id">The identifier.</param>
         /// <returns>A/an <c>IActionResult</c>.</returns>
         [HttpGet("{id}")]
+        [ProducesResponseType(typeof(Result<ToDoList>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetAsync(Guid id)
         {
             this.logger.LogDebug("Looking up a list by id {id}", id);
@@ -89,18 +90,41 @@
         /// <param name="info">The information.</param>
         /// <returns>A/an <c>Task&lt;IActionResult&gt;</c>.</returns>
         [HttpPost("")]
-        [ProducesResponseType(typeof(Result<string>), (int)HttpStatusCode.Created)]
-        public async Task<IActionResult> Create(CreateListInfo info)
+        [ProducesResponseType(typeof(Result<ToDoList>), (int)HttpStatusCode.Created)]
+        public async Task<IActionResult> Create(ListInfo info)
         {
             this.logger.LogDebug("Got request to create event titled {@eventInfo}", info);
             var createCommand = new CreateListCommand(Guid.NewGuid(), info.Title);
 
             await this.commandBus.ExecuteAsync(createCommand);
+            var list =
+                await this.queryBus.ExecuteAsync<FindList, ToDoList>(
+                    new FindList(createCommand.Id));
 
             return this.CreatedAtAction(
                 nameof(this.GetAsync),
                 new { id = createCommand.Id },
-                "Hello".MakeSuccessfulResult());
+                list.MakeSuccessfulResult());
+        }
+
+        /// <summary>
+        /// Update the specified list id
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="info">The information.</param>
+        /// <returns>A/an <c>Task&lt;IActionResult&gt;</c>.</returns>
+        [HttpPut("{id}")]
+        [ProducesResponseType(typeof(Result<ToDoList>), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> Updated(Guid id, ListInfo info)
+        {
+            this.logger.LogDebug(
+                "Got request to update the event {id} with the title {title}",
+                id,
+                info.Title);
+            var updateListCommand = new UpdateListCommand(id, info.Title);
+
+            await this.commandBus.ExecuteAsync(updateListCommand);
+            return await this.GetAsync(id);
         }
     }
 }
