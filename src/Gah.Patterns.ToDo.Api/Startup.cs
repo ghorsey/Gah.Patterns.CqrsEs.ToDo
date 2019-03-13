@@ -109,7 +109,7 @@
 
             // Query Handlers
             services.AddScoped<IRequestHandler<FindAllListsQuery, List<ToDoList>>, ListsQueryHandler>();
-            services.AddScoped<IRequestHandler<FindList, ToDoList>, ListsQueryHandler>();
+            services.AddScoped<IRequestHandler<FindListQuery, ToDoList>, ListsQueryHandler>();
 
             // Command Handlers
             services.AddScoped<IRequestHandler<UpdateListCommand, Unit>, ListCommandHandler>();

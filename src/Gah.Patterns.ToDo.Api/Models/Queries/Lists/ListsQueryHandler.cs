@@ -14,7 +14,7 @@
     /// </summary>
     public class ListsQueryHandler
         : IQueryHandler<FindAllListsQuery, List<ToDoList>>,
-          IQueryHandler<FindList, ToDoList>
+          IQueryHandler<FindListQuery, ToDoList>
     {
         /// <summary>
         /// The logger
@@ -56,7 +56,7 @@
         /// <param name="request">The request.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>A/an <c>Task&lt;ToDoList&gt;</c>.</returns>
-        public Task<ToDoList> Handle(FindList request, CancellationToken cancellationToken)
+        public Task<ToDoList> Handle(FindListQuery request, CancellationToken cancellationToken)
         {
             this.logger.LogDebug("Fetch a single list by id {id}", request.Id);
             return this.repository.FindListAsync(request.Id);

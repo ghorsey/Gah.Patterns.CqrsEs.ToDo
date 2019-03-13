@@ -79,7 +79,7 @@
         {
             this.logger.LogDebug("Looking up a list by id {id}", id);
 
-            var result = await this.queryBus.ExecuteAsync<FindList, ToDoList>(new FindList(id));
+            var result = await this.queryBus.ExecuteAsync<FindListQuery, ToDoList>(new FindListQuery(id));
 
             return this.Ok(result.MakeSuccessfulResult());
         }
@@ -98,8 +98,8 @@
 
             await this.commandBus.ExecuteAsync(createCommand);
             var list =
-                await this.queryBus.ExecuteAsync<FindList, ToDoList>(
-                    new FindList(createCommand.Id));
+                await this.queryBus.ExecuteAsync<FindListQuery, ToDoList>(
+                    new FindListQuery(createCommand.Id));
 
             return this.CreatedAtAction(
                 nameof(this.GetAsync),

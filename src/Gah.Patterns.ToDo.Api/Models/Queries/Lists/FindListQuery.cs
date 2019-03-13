@@ -8,13 +8,13 @@
     /// <summary>
     /// Class <c>FindList</c>.
     /// </summary>
-    public class FindList : IQuery<ToDoList>
+    public class FindListQuery : IQuery<ToDoList>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="FindList"/> class.
+        /// Initializes a new instance of the <see cref="FindListQuery"/> class.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        public FindList(Guid id)
+        public FindListQuery(Guid id)
         {
             this.Id = id;
         }
