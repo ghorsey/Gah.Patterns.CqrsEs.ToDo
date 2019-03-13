@@ -1,4 +1,4 @@
-namespace Gah.Patterns.ToDo.Command.Domain
+namespace Gah.Patterns.ToDo.Commands.Domain
 {
     using System;
     using System.Collections.Generic;

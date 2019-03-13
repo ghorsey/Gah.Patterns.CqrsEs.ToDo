@@ -30,19 +30,19 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gah.Patterns.ToDo.Repositor
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "app", "app", "{EC57497F-BE3D-482F-AAC8-8FFDCC41C140}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gah.Patterns.ToDo.Query.Domain", "src\app\Gah.Patterns.Todo.Query.Domain\Gah.Patterns.ToDo.Query.Domain.csproj", "{9CB34388-D2DE-4629-BBA8-09FEF2169AC6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gah.Patterns.ToDo.Query.Domain", "src\app\Gah.Patterns.Todo.Query.Domain\Gah.Patterns.ToDo.Query.Domain.csproj", "{9CB34388-D2DE-4629-BBA8-09FEF2169AC6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gah.Patterns.ToDo.Query.Repository", "src\app\Gah.Patterns.Todo.Query.Repository\Gah.Patterns.ToDo.Query.Repository.csproj", "{A296C028-830B-496C-8CB0-5B491A0E1059}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gah.Patterns.ToDo.Query.Repository", "src\app\Gah.Patterns.Todo.Query.Repository\Gah.Patterns.ToDo.Query.Repository.csproj", "{A296C028-830B-496C-8CB0-5B491A0E1059}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gah.Patterns.ToDo.Query.Repository.Sql", "src\app\Gah.Patterns.Todo.Query.Repository.Sql\Gah.Patterns.ToDo.Query.Repository.Sql.csproj", "{D8440F54-E432-45C2-BE58-36A2F026FD78}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gah.Patterns.ToDo.Query.Repository.Sql", "src\app\Gah.Patterns.Todo.Query.Repository.Sql\Gah.Patterns.ToDo.Query.Repository.Sql.csproj", "{D8440F54-E432-45C2-BE58-36A2F026FD78}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gah.Patterns.ToDo.Command.Domain", "src\app\Gah.Patterns.ToDo.Command.Domain\Gah.Patterns.ToDo.Command.Domain.csproj", "{8E78ED0C-D9D6-4F8C-94B5-5E7AECDA70CA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gah.Patterns.ToDo.Commands.Domain", "src\app\Gah.Patterns.ToDo.Command.Domain\Gah.Patterns.ToDo.Commands.Domain.csproj", "{8E78ED0C-D9D6-4F8C-94B5-5E7AECDA70CA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gah.Patterns.ToDo.Command.Domain.Tests", "test\app\Gah.Patterns.ToDo.Command.Domain.Tests\Gah.Patterns.ToDo.Command.Domain.Tests.csproj", "{E3CCF686-D1C3-468D-8824-8DA0CDC5393E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gah.Patterns.ToDo.Command.Domain.Tests", "test\app\Gah.Patterns.ToDo.Command.Domain.Tests\Gah.Patterns.ToDo.Command.Domain.Tests.csproj", "{E3CCF686-D1C3-468D-8824-8DA0CDC5393E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gah.Blocks.CqrsEs.EventStore.Sql", "src\blocks\Gah.Blocks.CqrsEs.EventStore.Sql\Gah.Blocks.CqrsEs.EventStore.Sql.csproj", "{13ED0079-0A5E-4B23-AAD2-5909E5A6D57F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gah.Blocks.CqrsEs.EventStore.Sql", "src\blocks\Gah.Blocks.CqrsEs.EventStore.Sql\Gah.Blocks.CqrsEs.EventStore.Sql.csproj", "{13ED0079-0A5E-4B23-AAD2-5909E5A6D57F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gah.Patterns.ToDo.Events", "src\app\Gah.Patterns.ToDo.Events\Gah.Patterns.ToDo.Events.csproj", "{FDEF05BC-284A-4704-8124-9CE95211E807}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gah.Patterns.ToDo.Events", "src\app\Gah.Patterns.ToDo.Events\Gah.Patterns.ToDo.Events.csproj", "{FDEF05BC-284A-4704-8124-9CE95211E807}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -9,7 +9,7 @@
     using Gah.Blocks.CqrsEs.Queries;
     using Gah.Patterns.ToDo.Api.Models.Queries.Items;
     using Gah.Patterns.ToDo.Api.Models.ToDoItem;
-    using Gah.Patterns.ToDo.Command.Domain.Commands.Items;
+    using Gah.Patterns.ToDo.Commands.Domain.Commands.Items;
     using Gah.Patterns.ToDo.Query.Domain;
 
     using Microsoft.AspNetCore.Mvc;

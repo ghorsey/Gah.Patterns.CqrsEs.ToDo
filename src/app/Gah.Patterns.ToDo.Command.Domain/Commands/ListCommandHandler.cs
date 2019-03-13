@@ -1,4 +1,4 @@
-﻿namespace Gah.Patterns.ToDo.Command.Domain.Commands
+﻿namespace Gah.Patterns.ToDo.Commands.Domain.Commands
 {
     using System;
     using System.Linq;
@@ -8,8 +8,9 @@
     using Gah.Blocks.CqrsEs.Commands;
     using Gah.Blocks.CqrsEs.Events;
     using Gah.Blocks.CqrsEs.EventStore;
-    using Gah.Patterns.ToDo.Command.Domain.Commands.Items;
-    using Gah.Patterns.ToDo.Command.Domain.Commands.Lists;
+    using Gah.Patterns.ToDo.Commands.Domain;
+    using Gah.Patterns.ToDo.Commands.Domain.Commands.Items;
+    using Gah.Patterns.ToDo.Commands.Domain.Commands.Lists;
     using Gah.Patterns.ToDo.Events.Items;
     using Gah.Patterns.ToDo.Events.Lists;
 

@@ -9,7 +9,7 @@
 
     using Gah.Patterns.ToDo.Api.Models.Queries.Lists;
     using Gah.Patterns.ToDo.Api.Models.ToDoList;
-    using Gah.Patterns.ToDo.Command.Domain.Commands.Lists;
+    using Gah.Patterns.ToDo.Commands.Domain.Commands.Lists;
     using Gah.Patterns.ToDo.Query.Domain;
 
     using Microsoft.AspNetCore.Mvc;
