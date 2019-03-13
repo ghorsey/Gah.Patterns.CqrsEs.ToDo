@@ -1,23 +1,27 @@
-﻿namespace Gah.Patterns.ToDo.Command.Domain.Events
+﻿namespace Gah.Patterns.ToDo.Command.Domain.Events.Items
 {
     using System;
 
     using Gah.Blocks.CqrsEs.Events;
 
     /// <summary>
-    /// Class <c>ListTitleUpdated</c>.
+    /// Class <c>ItemUpdatedEvent</c>.
+    /// Implements the <see cref="Gah.Blocks.CqrsEs.Events.BasicEvent" />
     /// </summary>
-    public class ListUpdatedEvent : BasicEvent
+    /// <seealso cref="Gah.Blocks.CqrsEs.Events.BasicEvent" />
+    public class ItemUpdatedEvent : BasicEvent
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ListUpdatedEvent" /> class.
+        /// Initializes a new instance of the <see cref="ItemUpdatedEvent"/> class.
         /// </summary>
         /// <param name="id">The identifier.</param>
+        /// <param name="listId">The list identifier.</param>
         /// <param name="title">The title.</param>
         /// <param name="updated">The updated.</param>
-        public ListUpdatedEvent(Guid id, string title, DateTime updated)
+        public ItemUpdatedEvent(Guid id, Guid listId, string title, DateTime updated)
         {
             this.Id = id;
+            this.ListId = listId;
             this.Title = title;
             this.Updated = updated;
         }
@@ -27,6 +31,12 @@
         /// </summary>
         /// <value>The identifier.</value>
         public Guid Id { get; }
+
+        /// <summary>
+        /// Gets the list identifier.
+        /// </summary>
+        /// <value>The list identifier.</value>
+        public Guid ListId { get; }
 
         /// <summary>
         /// Gets the title.

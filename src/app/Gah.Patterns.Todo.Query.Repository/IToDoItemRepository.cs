@@ -19,6 +19,13 @@
         Task<List<ToDoItem>> FindItemsAsync(Guid listId);
 
         /// <summary>
+        /// Finds the item asynchronous.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>A/an <c>Task&lt;ToDoItem&gt;</c>.</returns>
+        Task<ToDoItem> FindItemAsync(Guid id);
+
+        /// <summary>
         /// Creates the item asynchronous.
         /// </summary>
         /// <param name="item">The item.</param>

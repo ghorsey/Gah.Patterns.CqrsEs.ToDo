@@ -1,6 +1,7 @@
-﻿namespace Gah.Patterns.ToDo.Command.Domain.Events
+﻿namespace Gah.Patterns.ToDo.Command.Domain.Events.Lists
 {
     using System;
+
     using Gah.Blocks.CqrsEs.Events;
 
     /// <summary>

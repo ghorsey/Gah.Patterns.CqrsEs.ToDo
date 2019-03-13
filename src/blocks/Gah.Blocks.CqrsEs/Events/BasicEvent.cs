@@ -13,6 +13,7 @@
         /// Gets the type of the event.
         /// </summary>
         /// <value>The type of the event.</value>
-        public virtual string EventType => this.GetType().GetTypeInfo().Name;
+        public virtual string EventType =>
+            $"{this.GetType().GetTypeInfo().FullName}, {this.GetType().Assembly.GetName()}";
     }
 }

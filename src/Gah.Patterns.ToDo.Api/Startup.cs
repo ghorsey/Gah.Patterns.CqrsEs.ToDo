@@ -8,9 +8,13 @@
     using Gah.Blocks.CqrsEs.EventStore.Sql.Configuration;
     using Gah.Blocks.CqrsEs.Queries;
     using Gah.Patterns.ToDo.Api.Models.EventHandlers;
+    using Gah.Patterns.ToDo.Api.Models.Queries.Items;
     using Gah.Patterns.ToDo.Api.Models.Queries.Lists;
+    using Gah.Patterns.ToDo.Command.Domain.Commands;
+    using Gah.Patterns.ToDo.Command.Domain.Commands.Items;
     using Gah.Patterns.ToDo.Command.Domain.Commands.Lists;
-    using Gah.Patterns.ToDo.Command.Domain.Events;
+    using Gah.Patterns.ToDo.Command.Domain.Events.Items;
+    using Gah.Patterns.ToDo.Command.Domain.Events.Lists;
     using Gah.Patterns.ToDo.Query.Domain;
     using Gah.Patterns.ToDo.Query.Repository;
     using Gah.Patterns.ToDo.Query.Repository.Sql;
@@ -108,16 +112,32 @@
             services.AddScoped<IEventBus, EventBus>();
 
             // Query Handlers
+            // List Query Handlers
             services.AddScoped<IRequestHandler<FindAllListsQuery, List<ToDoList>>, ListsQueryHandler>();
             services.AddScoped<IRequestHandler<FindListQuery, ToDoList>, ListsQueryHandler>();
+
+            // Item Query Handler
+            services
+                .AddScoped<IRequestHandler<FindAllItemsQuery, List<ToDoItem>>, ItemsQueryHandler>();
+            services.AddScoped<IRequestHandler<FindItemQuery, ToDoItem>, ItemsQueryHandler>();
 
             // Command Handlers
             services.AddScoped<IRequestHandler<UpdateListCommand, Unit>, ListCommandHandler>();
             services.AddScoped<IRequestHandler<CreateListCommand, Unit>, ListCommandHandler>();
+            services.AddScoped<IRequestHandler<CreateItemCommand, Unit>, ListCommandHandler>();
+            services.AddScoped<IRequestHandler<UpdateItemCommand, Unit>, ListCommandHandler>();
+            services.AddScoped<IRequestHandler<UpdateItemIsDoneCommand, Unit>, ListCommandHandler>();
 
             // Event Handlers
+            // List Event Handlers
             services.AddScoped<INotificationHandler<ListCreatedEvent>, ListEventHandlers>();
             services.AddScoped<INotificationHandler<ListUpdatedEvent>, ListEventHandlers>();
+            services.AddScoped<INotificationHandler<ListCountsChangedEvent>, ListEventHandlers>();
+
+            // Item Event Handlers
+            services.AddScoped<INotificationHandler<ItemAddedEvent>, ItemEventHandler>();
+            services.AddScoped<INotificationHandler<ItemUpdatedEvent>, ItemEventHandler>();
+            services.AddScoped<INotificationHandler<ItemIsDoneUpdated>, ItemEventHandler>();
         }
 
         /// <summary>

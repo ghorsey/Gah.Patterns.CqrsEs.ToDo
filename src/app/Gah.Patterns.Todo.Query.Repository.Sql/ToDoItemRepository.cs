@@ -52,7 +52,18 @@
         public Task<List<ToDoItem>> FindItemsAsync(Guid listId)
         {
             this.logger.LogDebug("Finding items for list: {listId}", listId);
-            return this.entities.Where(_ => _.ListId == listId).ToListAsync();
+            return this.entities.Where(i => i.ListId == listId).OrderBy(i => i.Updated).ToListAsync();
+        }
+
+        /// <summary>
+        /// Finds the item asynchronous.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>A/an <c>Task&lt;ToDoItem&gt;</c>.</returns>
+        public Task<ToDoItem> FindItemAsync(Guid id)
+        {
+            this.logger.LogDebug("Finding the list item {id}", id);
+            return this.entities.FirstOrDefaultAsync(i => i.Id.Equals(id));
         }
 
         /// <summary>

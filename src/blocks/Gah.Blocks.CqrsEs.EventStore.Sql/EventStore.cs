@@ -153,7 +153,7 @@
                         stream,
                         expectedVersion++,
                         JsonConvert.SerializeObject(@event),
-                        @event.GetType().AssemblyQualifiedName));
+                        @event.EventType));
             }
 
             await this.context.EventSources.AddRangeAsync(eventSources);

@@ -12,43 +12,46 @@
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <param name="title">The title.</param>
-        public ToDoItem(Guid id, string title)
+        /// <param name="isDone">if set to <c>true</c> [is done].</param>
+        /// <param name="created">The created.</param>
+        /// <param name="updated">The updated.</param>
+        public ToDoItem(Guid id, string title, bool isDone, DateTime created, DateTime updated)
         {
             this.Id = id;
             this.Title = title;
-            this.IsDone = false;
-            this.Created = DateTime.UtcNow;
-            this.Updated = DateTime.UtcNow;
+            this.IsDone = isDone;
+            this.Created = created;
+            this.Updated = updated;
         }
 
         /// <summary>
         /// Gets the identifier.
         /// </summary>
         /// <value>The identifier.</value>
-        public Guid Id { get; private set; }
+        public Guid Id { get; }
 
         /// <summary>
-        /// Gets the title.
+        /// Gets or sets the title.
         /// </summary>
         /// <value>The title.</value>
-        public string Title { get; private set;  }
+        public string Title { get; set; }
 
         /// <summary>
-        /// Gets a value indicating whether this instance is done.
+        /// Gets or sets a value indicating whether this instance is done.
         /// </summary>
         /// <value><c>true</c> if this instance is done; otherwise, <c>false</c>.</value>
-        public bool IsDone { get; private set; }
+        public bool IsDone { get; set; }
 
         /// <summary>
         /// Gets the created.
         /// </summary>
         /// <value>The created.</value>
-        public DateTime Created { get; private set; }
+        public DateTime Created { get; }
 
         /// <summary>
-        /// Gets the updated.
+        /// Gets or sets the updated.
         /// </summary>
         /// <value>The updated.</value>
-        public DateTime Updated { get; private set; }
+        public DateTime Updated { get; set; }
     }
 }

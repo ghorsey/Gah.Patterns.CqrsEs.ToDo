@@ -3,8 +3,13 @@ namespace Gah.Patterns.ToDo.Command.Domain
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.Linq;
+
     using Gah.Blocks.CqrsEs;
+    using Gah.Blocks.CqrsEs.Events;
     using Gah.Patterns.ToDo.Command.Domain.Events;
+    using Gah.Patterns.ToDo.Command.Domain.Events.Items;
+    using Gah.Patterns.ToDo.Command.Domain.Events.Lists;
 
     /// <summary>
     /// Basic Class
@@ -20,7 +25,17 @@ namespace Gah.Patterns.ToDo.Command.Domain
         /// <summary>
         /// Initializes a new instance of the <see cref="ToDoList"/> class.
         /// </summary>
-        public ToDoList()
+        /// <param name="events">The events.</param>
+        public ToDoList(IEnumerable<IEvent> events)
+            : this()
+        {
+            this.Apply(events);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ToDoList"/> class.
+        /// </summary>
+        private ToDoList()
         {
             this.items = new List<ToDoItem>();
         }
@@ -97,8 +112,56 @@ namespace Gah.Patterns.ToDo.Command.Domain
                 throw new InvalidOperationException("Cannot update a new List, it must be created");
             }
 
+            this.Id = @event.Id;
             this.Title = @event.Title;
             this.Updated = @event.Updated;
+        }
+
+        /// <summary>
+        /// Whens the specified @event.
+        /// </summary>
+        /// <param name="event">The event.</param>
+        private void When(ItemAddedEvent @event)
+        {
+            var item = new ToDoItem(@event.Id, @event.Title, false, @event.Created, @event.Updated);
+
+            this.items.Add(item);
+        }
+
+        /// <summary>
+        /// Whens the specified event.
+        /// </summary>
+        /// <param name="event">The event.</param>
+        /// <exception cref="InvalidOperationException">The item {@event.Id}</exception>
+        private void When(ItemUpdatedEvent @event)
+        {
+            var item = this.items.FirstOrDefault(i => i.Id == @event.Id);
+
+            if (item == null)
+            {
+                throw new InvalidOperationException($"The item {@event.Id} was not found");
+            }
+
+            item.Title = @event.Title;
+            item.Updated = @event.Updated;
+        }
+
+        /// <summary>
+        /// Whens the specified event.
+        /// </summary>
+        /// <param name="event">The event.</param>
+        /// <exception cref="InvalidOperationException">The item {@event.Id}</exception>
+        private void When(ItemIsDoneUpdated @event)
+        {
+            var item = this.items.FirstOrDefault(i => i.Id == @event.Id);
+
+            if (item == null)
+            {
+                throw new InvalidOperationException($"The item {@event.Id} was not found");
+            }
+
+            item.IsDone = @event.IsDone;
+            item.Updated = @event.Updated;
         }
     }
 }

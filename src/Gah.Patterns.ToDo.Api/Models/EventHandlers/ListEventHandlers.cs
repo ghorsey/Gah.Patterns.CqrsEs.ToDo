@@ -4,16 +4,19 @@
     using System.Threading.Tasks;
     using Gah.Blocks.CqrsEs.Events;
     using Gah.Patterns.ToDo.Command.Domain.Events;
+    using Gah.Patterns.ToDo.Command.Domain.Events.Lists;
     using Gah.Patterns.ToDo.Query.Repository;
     using Microsoft.Extensions.Logging;
 
     /// <summary>
     /// Implements the <see cref="IEventHandler{ListCreatedEvent}" />
     /// Implements the <see cref="IEventHandler{ListUpdated}" />
+    /// Implements the <see cref="IEventHandler{ListCountsChanged}" />
     /// </summary>
+    /// <seealso cref="IEventHandler{ListCountsChanged}" />
     /// <seealso cref="IEventHandler{ListUpdated}" />
     /// <seealso cref="IEventHandler{ListCreatedEvent}" />
-    public class ListEventHandlers : IEventHandler<ListCreatedEvent>, IEventHandler<ListUpdatedEvent>
+    public class ListEventHandlers : IEventHandler<ListCreatedEvent>, IEventHandler<ListUpdatedEvent>, IEventHandler<ListCountsChangedEvent>
     {
         /// <summary>
         /// The repository
@@ -74,6 +77,28 @@
                 list.TotalCompleted,
                 list.TotalPending,
                 notification.Updated,
+                list.Created);
+
+            await this.repository.UpdateListAsync(updated);
+        }
+
+        /// <summary>
+        /// Handles the specified notification.
+        /// </summary>
+        /// <param name="notification">The notification.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns>A/an <c>Task</c>.</returns>
+        public async Task Handle(ListCountsChangedEvent notification, CancellationToken cancellationToken)
+        {
+            var list = await this.repository.FindListAsync(notification.Id);
+
+            var updated = new Query.Domain.ToDoList(
+                list.Id,
+                list.Title,
+                notification.TotalItems,
+                notification.CompletedItems,
+                notification.PendingItems,
+                list.Updated,
                 list.Created);
 
             await this.repository.UpdateListAsync(updated);

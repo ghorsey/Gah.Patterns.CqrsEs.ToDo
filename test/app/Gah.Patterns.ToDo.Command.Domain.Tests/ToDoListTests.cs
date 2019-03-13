@@ -4,6 +4,8 @@ namespace Gah.Patterns.ToDo.Command.Domain.Tests
 
     using Gah.Blocks.CqrsEs;
     using Gah.Patterns.ToDo.Command.Domain.Events;
+    using Gah.Patterns.ToDo.Command.Domain.Events.Lists;
+
     using Xunit;
 
     /// <summary>
@@ -23,9 +25,7 @@ namespace Gah.Patterns.ToDo.Command.Domain.Tests
                 DateTime.UtcNow,
                 DateTime.UtcNow);
 
-            var list = new ToDoList();
-
-            list.Apply(new[] { evt });
+            var list = new ToDoList(new[] { evt });
 
             Assert.Equal(evt.Id, list.Id);
             Assert.Equal(evt.Title, list.Title);
