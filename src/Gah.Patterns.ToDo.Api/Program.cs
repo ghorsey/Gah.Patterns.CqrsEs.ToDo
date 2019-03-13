@@ -3,6 +3,8 @@
     using System;
     using System.Diagnostics.CodeAnalysis;
 
+    using Gah.Blocks.CqrsEs.EventStore.Sql.DbContexts;
+    using Gah.Patterns.ToDo.Api.Data;
     using Gah.Patterns.ToDo.Query.Repository.Sql.Data;
 
     using Microsoft.AspNetCore;
@@ -31,7 +33,10 @@
                 try
                 {
                     var context = services.GetRequiredService<ApplicationDbContext>();
+                    var eventStoreContext = services.GetRequiredService<EventStoreDbContext>();
+
                     DbInitializer.InitializeAsync(context).GetAwaiter().GetResult();
+                    DbInitializer.InitializeAsync(eventStoreContext).GetAwaiter().GetResult();
                 }
                 catch (Exception x)
                 {

@@ -2,6 +2,7 @@
 {
     using System.Threading.Tasks;
 
+    using Gah.Patterns.ToDo.Api.Data;
     using Gah.Patterns.ToDo.Query.Repository.Sql.Data;
 
     using Xunit;
