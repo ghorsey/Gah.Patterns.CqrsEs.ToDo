@@ -40,6 +40,7 @@
     
   <ItemGroup>
     <ProjectReference Include="..\app\Gah.Patterns.ToDo.Commands.Domain\Gah.Patterns.ToDo.Commands.Domain.csproj" />
+    <ProjectReference Include="..\app\Gah.Patterns.ToDo.Commands\Gah.Patterns.ToDo.Commands.csproj" />
     <ProjectReference Include="..\app\Gah.Patterns.Todo.Query.Domain\Gah.Patterns.ToDo.Query.Domain.csproj" />
     <ProjectReference Include="..\app\Gah.Patterns.Todo.Query.Repository.Sql\Gah.Patterns.ToDo.Query.Repository.Sql.csproj" />
     <ProjectReference Include="..\app\Gah.Patterns.Todo.Query.Repository\Gah.Patterns.ToDo.Query.Repository.csproj" />

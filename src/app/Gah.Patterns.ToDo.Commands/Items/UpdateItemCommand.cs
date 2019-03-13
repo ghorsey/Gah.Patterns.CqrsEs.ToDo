@@ -1,25 +1,25 @@
-﻿namespace Gah.Patterns.ToDo.Commands.Domain.Commands.Items
+﻿namespace Gah.Patterns.ToDo.Commands.Items
 {
     using System;
 
     using Gah.Blocks.CqrsEs.Commands;
 
     /// <summary>
-    /// Class <c>UpdateToDoCommand</c>.
+    /// Class <c>UpdateItemCommand</c>.
     /// </summary>
-    public class UpdateItemIsDoneCommand : ICommand
+    public class UpdateItemCommand : ICommand
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="UpdateItemIsDoneCommand"/> class.
+        /// Initializes a new instance of the <see cref="UpdateItemCommand"/> class.
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <param name="listId">The list identifier.</param>
-        /// <param name="isDone">if set to <c>true</c> [to do].</param>
-        public UpdateItemIsDoneCommand(Guid id, Guid listId, bool isDone)
+        /// <param name="title">The title.</param>
+        public UpdateItemCommand(Guid id, Guid listId, string title)
         {
             this.Id = id;
             this.ListId = listId;
-            this.IsDone = isDone;
+            this.Title = title;
         }
 
         /// <summary>
@@ -35,9 +35,9 @@
         public Guid ListId { get; }
 
         /// <summary>
-        /// Gets a value indicating whether [to do].
+        /// Gets the title.
         /// </summary>
-        /// <value><c>true</c> if [to do]; otherwise, <c>false</c>.</value>
-        public bool IsDone { get; }
+        /// <value>The title.</value>
+        public string Title { get; }
     }
 }

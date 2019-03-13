@@ -1,20 +1,20 @@
-﻿namespace Gah.Patterns.ToDo.Commands.Domain.Commands.Lists
+﻿namespace Gah.Patterns.ToDo.Commands.Lists
 {
     using System;
 
     using Gah.Blocks.CqrsEs.Commands;
 
     /// <summary>
-    /// Class <c>CreateListCommand</c>.
+    /// Class <c>UpdateListCommand</c>.
     /// </summary>
-    public class CreateListCommand : ICommand
+    public class UpdateListCommand : ICommand
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="CreateListCommand"/> class.
+        /// Initializes a new instance of the <see cref="UpdateListCommand" /> class.
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <param name="title">The title.</param>
-        public CreateListCommand(Guid id, string title)
+        public UpdateListCommand(Guid id, string title)
         {
             this.Id = id;
             this.Title = title;

@@ -10,9 +10,9 @@
     using Gah.Patterns.ToDo.Api.Models.EventHandlers;
     using Gah.Patterns.ToDo.Api.Models.Queries.Items;
     using Gah.Patterns.ToDo.Api.Models.Queries.Lists;
-    using Gah.Patterns.ToDo.Commands.Domain.Commands;
-    using Gah.Patterns.ToDo.Commands.Domain.Commands.Items;
-    using Gah.Patterns.ToDo.Commands.Domain.Commands.Lists;
+    using Gah.Patterns.ToDo.Commands;
+    using Gah.Patterns.ToDo.Commands.Items;
+    using Gah.Patterns.ToDo.Commands.Lists;
     using Gah.Patterns.ToDo.Events.Items;
     using Gah.Patterns.ToDo.Events.Lists;
     using Gah.Patterns.ToDo.Query.Domain;

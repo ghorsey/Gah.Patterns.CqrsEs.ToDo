@@ -1,4 +1,4 @@
-﻿namespace Gah.Patterns.ToDo.Commands.Domain.Commands.Items
+﻿namespace Gah.Patterns.ToDo.Commands.Items
 {
     using System;
 
