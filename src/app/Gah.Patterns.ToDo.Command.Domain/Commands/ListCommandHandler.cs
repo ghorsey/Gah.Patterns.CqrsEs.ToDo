@@ -10,8 +10,8 @@
     using Gah.Blocks.CqrsEs.EventStore;
     using Gah.Patterns.ToDo.Command.Domain.Commands.Items;
     using Gah.Patterns.ToDo.Command.Domain.Commands.Lists;
-    using Gah.Patterns.ToDo.Command.Domain.Events.Items;
-    using Gah.Patterns.ToDo.Command.Domain.Events.Lists;
+    using Gah.Patterns.ToDo.Events.Items;
+    using Gah.Patterns.ToDo.Events.Lists;
 
     using MediatR;
 

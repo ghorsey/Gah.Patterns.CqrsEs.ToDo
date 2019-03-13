@@ -41,6 +41,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\src\app\Gah.Patterns.ToDo.Command.Domain\Gah.Patterns.ToDo.Command.Domain.csproj" />
+    <ProjectReference Include="..\..\..\src\app\Gah.Patterns.ToDo.Events\Gah.Patterns.ToDo.Events.csproj" />
   </ItemGroup>
 
 </Project>

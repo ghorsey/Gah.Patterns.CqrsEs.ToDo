@@ -12,7 +12,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <WarningsAsErrors />
-    <DocumentationFile>Gah.Patterns.ToDo.Command.Domain.xml</DocumentationFile>
+    <DocumentationFile>Gah.Patterns.ToDo.Events.xml</DocumentationFile>
     <CodeAnalysisRuleSet>StyleCop.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
@@ -32,7 +32,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\blocks\Gah.Blocks.CqrsEs\Gah.Blocks.CqrsEs.csproj" />
-    <ProjectReference Include="..\Gah.Patterns.ToDo.Events\Gah.Patterns.ToDo.Events.csproj" />
   </ItemGroup>
 
 </Project>

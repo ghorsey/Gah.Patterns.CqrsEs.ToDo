@@ -3,8 +3,7 @@
     using System.Threading;
     using System.Threading.Tasks;
     using Gah.Blocks.CqrsEs.Events;
-    using Gah.Patterns.ToDo.Command.Domain.Events;
-    using Gah.Patterns.ToDo.Command.Domain.Events.Lists;
+    using Gah.Patterns.ToDo.Events.Lists;
     using Gah.Patterns.ToDo.Query.Repository;
     using Microsoft.Extensions.Logging;
 

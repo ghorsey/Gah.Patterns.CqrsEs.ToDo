@@ -2,9 +2,7 @@ namespace Gah.Patterns.ToDo.Command.Domain.Tests
 {
     using System;
 
-    using Gah.Blocks.CqrsEs;
-    using Gah.Patterns.ToDo.Command.Domain.Events;
-    using Gah.Patterns.ToDo.Command.Domain.Events.Lists;
+    using Gah.Patterns.ToDo.Events.Lists;
 
     using Xunit;
 

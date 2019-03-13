@@ -1,4 +1,4 @@
-﻿namespace Gah.Patterns.ToDo.Command.Domain.Events.Items
+﻿namespace Gah.Patterns.ToDo.Events.Items
 {
     using System;
 

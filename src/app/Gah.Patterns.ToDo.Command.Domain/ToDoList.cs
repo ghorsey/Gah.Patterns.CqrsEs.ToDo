@@ -7,9 +7,8 @@ namespace Gah.Patterns.ToDo.Command.Domain
 
     using Gah.Blocks.CqrsEs;
     using Gah.Blocks.CqrsEs.Events;
-    using Gah.Patterns.ToDo.Command.Domain.Events;
-    using Gah.Patterns.ToDo.Command.Domain.Events.Items;
-    using Gah.Patterns.ToDo.Command.Domain.Events.Lists;
+    using Gah.Patterns.ToDo.Events.Items;
+    using Gah.Patterns.ToDo.Events.Lists;
 
     /// <summary>
     /// Basic Class
