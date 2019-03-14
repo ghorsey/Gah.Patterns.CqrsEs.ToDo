@@ -2,7 +2,7 @@ namespace Gah.Patterns.ToDo.Command.Domain.Tests
 {
     using System;
 
-    using Gah.Patterns.ToDo.Commands.Domain;
+    using Gah.Patterns.ToDo.Domain;
     using Gah.Patterns.ToDo.Events.Lists;
 
     using Xunit;
