@@ -1,10 +1,12 @@
-﻿namespace Gah.Patterns.ToDo.Api.Models.EventHandlers
+﻿namespace Gah.Patterns.ToDo.Query.EventHandlers
 {
     using System.Threading;
     using System.Threading.Tasks;
+
     using Gah.Blocks.CqrsEs.Events;
     using Gah.Patterns.ToDo.Events.Lists;
     using Gah.Patterns.ToDo.Query.Repository;
+
     using Microsoft.Extensions.Logging;
 
     /// <summary>

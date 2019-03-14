@@ -1,4 +1,4 @@
-﻿namespace Gah.Patterns.ToDo.Api.Models.Queries.Lists
+﻿namespace Gah.Patterns.ToDo.Query.QueryHandlers
 {
     using System.Collections.Generic;
     using System.Threading;
@@ -6,7 +6,9 @@
 
     using Gah.Blocks.CqrsEs.Queries;
     using Gah.Patterns.ToDo.Query.Domain;
+    using Gah.Patterns.ToDo.Query.Queries.Lists;
     using Gah.Patterns.ToDo.Query.Repository;
+
     using Microsoft.Extensions.Logging;
 
     /// <summary>
@@ -24,7 +26,7 @@
         /// <summary>
         /// The repository
         /// </summary>
-        private IToDoListRepository repository;
+        private readonly IToDoListRepository repository;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ListsQueryHandler"/> class.

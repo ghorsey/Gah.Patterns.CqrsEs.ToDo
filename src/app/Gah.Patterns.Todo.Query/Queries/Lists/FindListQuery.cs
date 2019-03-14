@@ -1,4 +1,4 @@
-﻿namespace Gah.Patterns.ToDo.Api.Models.Queries.Lists
+﻿namespace Gah.Patterns.ToDo.Query.Queries.Lists
 {
     using System;
 

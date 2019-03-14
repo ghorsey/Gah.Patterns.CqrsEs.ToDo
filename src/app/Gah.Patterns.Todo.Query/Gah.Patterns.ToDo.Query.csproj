@@ -1,0 +1,40 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors></Authors>
+    <Company>TruckSpottr Inc.</Company>
+    <Description></Description>
+    <Version>1.0.0</Version>
+    <PackageTags></PackageTags>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsAsErrors />
+    <DocumentationFile>Gah.Patterns.ToDo.Query.xml</DocumentationFile>
+    <CodeAnalysisRuleSet>StyleCop.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsAsErrors />
+    <DocumentationFile>Gah.Patterns.Todo.Domain.xml</DocumentationFile>
+    <CodeAnalysisRuleSet>StyleCop.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="StyleCop.Analyzers" Version="1.0.2">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\blocks\Gah.Blocks.CqrsEs\Gah.Blocks.CqrsEs.csproj" />
+    <ProjectReference Include="..\Gah.Patterns.ToDo.Events\Gah.Patterns.ToDo.Events.csproj" />
+    <ProjectReference Include="..\Gah.Patterns.Todo.Query.Domain\Gah.Patterns.ToDo.Query.Domain.csproj" />
+    <ProjectReference Include="..\Gah.Patterns.Todo.Query.Repository\Gah.Patterns.ToDo.Query.Repository.csproj" />
+  </ItemGroup>
+
+</Project>

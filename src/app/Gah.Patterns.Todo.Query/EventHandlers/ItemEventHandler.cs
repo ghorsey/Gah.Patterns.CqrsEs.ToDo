@@ -1,4 +1,4 @@
-﻿namespace Gah.Patterns.ToDo.Api.Models.EventHandlers
+﻿namespace Gah.Patterns.ToDo.Query.EventHandlers
 {
     using System.Threading;
     using System.Threading.Tasks;

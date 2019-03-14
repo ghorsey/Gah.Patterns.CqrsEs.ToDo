@@ -7,10 +7,10 @@
     using Gah.Blocks.CqrsEs.Commands;
     using Gah.Blocks.CqrsEs.Queries;
 
-    using Gah.Patterns.ToDo.Api.Models.Queries.Lists;
     using Gah.Patterns.ToDo.Api.Models.ToDoList;
     using Gah.Patterns.ToDo.Commands.Lists;
     using Gah.Patterns.ToDo.Query.Domain;
+    using Gah.Patterns.ToDo.Query.Queries.Lists;
 
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;

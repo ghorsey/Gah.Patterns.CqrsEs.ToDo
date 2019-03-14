@@ -1,15 +1,17 @@
-﻿namespace Gah.Patterns.ToDo.Api.Models.Queries.Items
+﻿namespace Gah.Patterns.ToDo.Query.QueryHandlers
 {
     using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
+
     using Gah.Blocks.CqrsEs.Queries;
     using Gah.Patterns.ToDo.Query.Domain;
+    using Gah.Patterns.ToDo.Query.Queries.Items;
     using Gah.Patterns.ToDo.Query.Repository;
 
     /// <summary>
     /// Class <c>ItemsQueryHandler</c>.
-    /// Implements the <see cref="IQueryHandler{TQuery, TResponse}" />
+    /// Implements the <see cref="IQueryHandler{TQuery,TResponse}" />
     /// Implements the <see cref="IQueryHandler{FindItemQuery, ToDoItem}" />
     /// </summary>
     /// <seealso cref="IQueryHandler{FindItemQuery, ToDoItem}" />

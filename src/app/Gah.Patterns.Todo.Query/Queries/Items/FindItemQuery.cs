@@ -1,4 +1,4 @@
-﻿namespace Gah.Patterns.ToDo.Api.Models.Queries.Items
+﻿namespace Gah.Patterns.ToDo.Query.Queries.Items
 {
     using System;
 
@@ -7,7 +7,7 @@
 
     /// <summary>
     /// Class <c>FindItemQuery</c>.
-    /// Implements the <see cref="IQuery{ToDoItem}" />
+    /// Implements the <see cref="IQuery{TResponse}" />
     /// </summary>
     /// <seealso cref="IQuery{ToDoItem}" />
     public class FindItemQuery : IQuery<ToDoItem>
