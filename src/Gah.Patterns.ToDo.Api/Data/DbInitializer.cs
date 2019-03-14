@@ -23,7 +23,8 @@
         /// </returns>
         public static async Task InitializeAsync(ApplicationDbContext context)
         {
-            await context.Database.EnsureCreatedAsync();
+            ////await context.Database.EnsureCreatedAsync();
+            await context.Database.MigrateAsync();
         }
 
         /// <summary>
@@ -33,7 +34,7 @@
         /// <returns>A/an <c>Task.</c></returns>
         public static async Task InitializeAsync(EventStoreDbContext context)
         {
-            await context.Database.EnsureCreatedAsync();
+            ////await context.Database.EnsureCreatedAsync();
 
             await context.Database.MigrateAsync();
         }
