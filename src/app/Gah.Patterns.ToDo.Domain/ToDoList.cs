@@ -32,7 +32,7 @@ namespace Gah.Patterns.ToDo.Domain
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ToDoList"/> class.
+        /// Prevents a default instance of the <see cref="ToDoList"/> class from being created.
         /// </summary>
         private ToDoList()
         {

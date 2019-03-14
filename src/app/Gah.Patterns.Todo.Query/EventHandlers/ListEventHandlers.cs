@@ -5,6 +5,7 @@
 
     using Gah.Blocks.CqrsEs.Events;
     using Gah.Patterns.ToDo.Events.Lists;
+    using Gah.Patterns.ToDo.Query.Domain;
     using Gah.Patterns.ToDo.Query.Repository;
 
     using Microsoft.Extensions.Logging;
@@ -71,7 +72,7 @@
         {
             var list = await this.repository.FindListAsync(notification.Id);
 
-            var updated = new Query.Domain.ToDoList(
+            var updated = new ToDoList(
                 list.Id,
                 notification.Title,
                 list.TotalItems,
@@ -93,7 +94,7 @@
         {
             var list = await this.repository.FindListAsync(notification.Id);
 
-            var updated = new Query.Domain.ToDoList(
+            var updated = new ToDoList(
                 list.Id,
                 list.Title,
                 notification.TotalItems,

@@ -30,7 +30,7 @@
         /// <summary>
         /// The logger
         /// </summary>
-        private ILogger logger;
+        private readonly ILogger logger;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ItemEventHandler"/> class.
