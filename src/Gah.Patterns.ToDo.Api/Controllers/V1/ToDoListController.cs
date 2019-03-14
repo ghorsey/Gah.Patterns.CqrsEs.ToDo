@@ -126,5 +126,23 @@
             await this.commandBus.ExecuteAsync(updateListCommand);
             return await this.GetAsync(id);
         }
+
+        /// <summary>
+        /// Deletes the specified identifier.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>A/an <c>Task&lt;IActionResult&gt;</c>.</returns>
+        [HttpDelete("{id}")]
+        [ProducesResponseType((int)HttpStatusCode.NoContent)]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            this.logger.LogDebug("Attempting to delete list {id}", id);
+
+            var deleteListCommand = new DeleteListCommand(id);
+
+            await this.commandBus.ExecuteAsync(deleteListCommand);
+
+            return this.NoContent();
+        }
     }
 }

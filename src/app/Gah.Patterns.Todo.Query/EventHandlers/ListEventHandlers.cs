@@ -13,12 +13,17 @@
     /// <summary>
     /// Implements the <see cref="IEventHandler{ListCreatedEvent}" />
     /// Implements the <see cref="IEventHandler{ListUpdated}" />
-    /// Implements the <see cref="IEventHandler{ListCountsChanged}" />
+    /// Implements the <see cref="IEventHandler{ListCountsChangedEvent}" />
+    /// Implements the <see cref="IEventHandler{ListDeletedEvent}" />
     /// </summary>
-    /// <seealso cref="IEventHandler{ListCountsChanged}" />
+    /// <seealso cref="IEventHandler{ListCountsChangedEvent}" />
     /// <seealso cref="IEventHandler{ListUpdated}" />
     /// <seealso cref="IEventHandler{ListCreatedEvent}" />
-    public class ListEventHandlers : IEventHandler<ListCreatedEvent>, IEventHandler<ListUpdatedEvent>, IEventHandler<ListCountsChangedEvent>
+    /// <seealso cref="IEventHandler{ListDeletedEvent}" />
+    public class ListEventHandlers : IEventHandler<ListCreatedEvent>,
+                                     IEventHandler<ListUpdatedEvent>,
+                                     IEventHandler<ListCountsChangedEvent>,
+                                     IEventHandler<ListDeletedEvent>
     {
         /// <summary>
         /// The repository
@@ -70,6 +75,7 @@
         /// <returns>A/an <c>Task</c>.</returns>
         public async Task Handle(ListUpdatedEvent notification, CancellationToken cancellationToken)
         {
+            this.logger.LogDebug("The list was updated {@list}", notification);
             var list = await this.repository.FindListAsync(notification.Id);
 
             var updated = new ToDoList(
@@ -90,8 +96,11 @@
         /// <param name="notification">The notification.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>A/an <c>Task</c>.</returns>
-        public async Task Handle(ListCountsChangedEvent notification, CancellationToken cancellationToken)
+        public async Task Handle(
+            ListCountsChangedEvent notification,
+            CancellationToken cancellationToken)
         {
+            this.logger.LogDebug("Updating list counts to {@counts}", notification);
             var list = await this.repository.FindListAsync(notification.Id);
 
             var updated = new ToDoList(
@@ -104,6 +113,19 @@
                 list.Created);
 
             await this.repository.UpdateListAsync(updated);
+        }
+
+        /// <summary>
+        /// Handles the specified notification.
+        /// </summary>
+        /// <param name="notification">The notification.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns>A/an <c>Task</c>.</returns>
+        public async Task Handle(ListDeletedEvent notification, CancellationToken cancellationToken)
+        {
+            this.logger.LogDebug("A list was deleted {@list}", notification);
+
+            await this.repository.DeleteListAsync(notification.Id);
         }
     }
 }

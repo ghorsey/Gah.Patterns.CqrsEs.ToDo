@@ -87,9 +87,41 @@
         public async Task UpdateItemAsync(ToDoItem item)
         {
             this.logger.LogDebug("Updating item {@item}", item);
-            var toDelete = await this.entities.FirstOrDefaultAsync(_ => _.Id == item.Id);
+            var toDelete = await this.entities.FirstOrDefaultAsync(i => i.Id == item.Id);
             this.entities.Remove(toDelete);
             await this.entities.AddAsync(item);
+
+            await this.context.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// delete item as an asynchronous operation.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>A/an <c>Task</c>.</returns>
+        public async Task DeleteItemAsync(Guid id)
+        {
+            this.logger.LogDebug("Deleting item {item}", id);
+
+            var toDelete = await this.entities.FirstOrDefaultAsync(i => i.Id == id);
+
+            this.entities.Remove(toDelete);
+
+            await this.context.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// delete all items for list as an asynchronous operation.
+        /// </summary>
+        /// <param name="listId">The list identifier.</param>
+        /// <returns>A/an <c>Task</c>.</returns>
+        public async Task DeleteAllItemsForListAsync(Guid listId)
+        {
+            this.logger.LogDebug("Deleting all items for list {listId}", listId);
+
+            var toDelete = await this.entities.Where(i => i.ListId == listId).ToListAsync();
+
+            this.entities.RemoveRange(toDelete);
 
             await this.context.SaveChangesAsync();
         }

@@ -128,17 +128,22 @@
             services.AddScoped<IRequestHandler<CreateItemCommand, Unit>, ListCommandHandler>();
             services.AddScoped<IRequestHandler<UpdateItemCommand, Unit>, ListCommandHandler>();
             services.AddScoped<IRequestHandler<UpdateItemIsDoneCommand, Unit>, ListCommandHandler>();
+            services.AddScoped<IRequestHandler<DeleteItemCommand, Unit>, ListCommandHandler>();
+            services.AddScoped<IRequestHandler<DeleteListCommand, Unit>, ListCommandHandler>();
 
             // Event Handlers
             // List Event Handlers
             services.AddScoped<INotificationHandler<ListCreatedEvent>, ListEventHandlers>();
             services.AddScoped<INotificationHandler<ListUpdatedEvent>, ListEventHandlers>();
             services.AddScoped<INotificationHandler<ListCountsChangedEvent>, ListEventHandlers>();
+            services.AddScoped<INotificationHandler<ListDeletedEvent>, ListEventHandlers>();
 
             // Item Event Handlers
-            services.AddScoped<INotificationHandler<ItemAddedEvent>, ItemEventHandler>();
-            services.AddScoped<INotificationHandler<ItemUpdatedEvent>, ItemEventHandler>();
-            services.AddScoped<INotificationHandler<ItemIsDoneUpdated>, ItemEventHandler>();
+            services.AddScoped<INotificationHandler<ItemAddedEvent>, ItemEventHandlers>();
+            services.AddScoped<INotificationHandler<ItemUpdatedEvent>, ItemEventHandlers>();
+            services.AddScoped<INotificationHandler<ItemIsDoneUpdatedEvent>, ItemEventHandlers>();
+            services.AddScoped<INotificationHandler<ItemDeletedEvent>, ItemEventHandlers>();
+            services.AddScoped<INotificationHandler<ListDeletedEvent>, ItemEventHandlers>();
         }
 
         /// <summary>

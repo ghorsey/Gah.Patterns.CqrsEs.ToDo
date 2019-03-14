@@ -24,19 +24,25 @@
     /// Implements the <see cref="ICommandHandler{UpdateListCommand}" />
     /// Implements the <see cref="ICommandHandler{CreateItemCommand}" />
     /// Implements the <see cref="ICommandHandler{UpdateItemIsDoneCommand}" />
+    /// Implements the <see cref="ICommandHandler{DeleteItemCommand}" />
+    /// Implements the <see cref="ICommandHandler{DeleteListCommand}" />
     /// </summary>
     /// <seealso cref="ICommandHandler{UpdateItemCommand}" />
     /// <seealso cref="ICommandHandler{CreateItemCommand}" />
     /// <seealso cref="ICommandHandler{CreateListCommand}" />
     /// <seealso cref="ICommandHandler{UpdateListCommand}" />
     /// <seealso cref="ICommandHandler{UpdateItemIsDoneCommand}" />
+    /// <seealso cref="ICommandHandler{DeleteItemCommand}" />
+    /// <seealso cref="ICommandHandler{DeleteListCommand}" />
     /// <inheritdoc cref="ICommandHandler{TCommand}" />
     public class ListCommandHandler
         : ICommandHandler<CreateListCommand>,
           ICommandHandler<UpdateListCommand>,
           ICommandHandler<CreateItemCommand>,
           ICommandHandler<UpdateItemCommand>,
-          ICommandHandler<UpdateItemIsDoneCommand>
+          ICommandHandler<UpdateItemIsDoneCommand>,
+          ICommandHandler<DeleteItemCommand>,
+          ICommandHandler<DeleteListCommand>
     {
         /// <summary>
         /// The event store
@@ -232,7 +238,7 @@
 
             var list = new ToDoList(events.Events);
 
-            var isDoneUpdated = new ItemIsDoneUpdated(
+            var isDoneUpdated = new ItemIsDoneUpdatedEvent(
                 request.Id,
                 request.ListId,
                 request.IsDone,
@@ -261,6 +267,74 @@
             await this.eventBus.PublishAsync(
                 new IEvent[] { isDoneUpdated, countsChangedEvent },
                 cancellationToken);
+
+            return Unit.Value;
+        }
+
+        /// <summary>
+        /// Handles the specified request.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns>A/an <c>Task&lt;Unit&gt;</c>.</returns>
+        public async Task<Unit> Handle(DeleteItemCommand request, CancellationToken cancellationToken)
+        {
+            this.logger.LogDebug("Attempting to delete an item with the command {@item}", request);
+
+            var eventStream = await this.eventStore.ReadAllForwardAsync(request.ListId.ToString());
+
+            var list = new ToDoList(eventStream.Events);
+
+            var deleteItemEvent = new ItemDeletedEvent(request.Id, request.ListId);
+
+            list.Apply(deleteItemEvent);
+
+            var countsChangedEvent = this.CreateListCountsChangedEvent(list);
+
+            this.logger.LogDebug("About to record the event @{event}", deleteItemEvent);
+            this.logger.LogDebug("About to record the event {@event}", countsChangedEvent);
+
+            await this.eventStore.AppendToStreamAsync(
+                request.ListId.ToString(),
+                eventStream.NextEventNumber,
+                deleteItemEvent,
+                countsChangedEvent);
+
+            await this.eventBus.PublishAsync(
+                new IEvent[] { deleteItemEvent, countsChangedEvent },
+                cancellationToken);
+
+            return Unit.Value;
+        }
+
+        /// <summary>
+        /// Handles the specified request.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns>A/an <c>Task&lt;Unit&gt;</c>.</returns>
+        public async Task<Unit> Handle(DeleteListCommand request, CancellationToken cancellationToken)
+        {
+            this.logger.LogDebug(
+                "Attempting to delete a list with the command {@command}",
+                request);
+
+            var eventStream = await this.eventStore.ReadAllForwardAsync(request.Id.ToString());
+
+            var list = new ToDoList(eventStream.Events);
+
+            var deletedListEvent = new ListDeletedEvent(request.Id);
+
+            list.Apply(deletedListEvent);
+
+            this.logger.LogDebug("About to save the {@event}", deletedListEvent);
+
+            await this.eventStore.AppendToStreamAsync(
+                request.Id.ToString(),
+                eventStream.NextEventNumber,
+                deletedListEvent);
+
+            await this.eventBus.PublishAsync(new[] { deletedListEvent }, cancellationToken);
 
             return Unit.Value;
         }

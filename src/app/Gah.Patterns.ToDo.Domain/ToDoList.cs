@@ -134,12 +134,7 @@ namespace Gah.Patterns.ToDo.Domain
         /// <exception cref="InvalidOperationException">The item {@event.Id}</exception>
         private void When(ItemUpdatedEvent @event)
         {
-            var item = this.items.FirstOrDefault(i => i.Id == @event.Id);
-
-            if (item == null)
-            {
-                throw new InvalidOperationException($"The item {@event.Id} was not found");
-            }
+            var item = this.items.First(i => i.Id == @event.Id);
 
             item.Title = @event.Title;
             item.Updated = @event.Updated;
@@ -150,17 +145,23 @@ namespace Gah.Patterns.ToDo.Domain
         /// </summary>
         /// <param name="event">The event.</param>
         /// <exception cref="InvalidOperationException">The item {@event.Id}</exception>
-        private void When(ItemIsDoneUpdated @event)
+        private void When(ItemIsDoneUpdatedEvent @event)
         {
-            var item = this.items.FirstOrDefault(i => i.Id == @event.Id);
-
-            if (item == null)
-            {
-                throw new InvalidOperationException($"The item {@event.Id} was not found");
-            }
+            var item = this.items.First(i => i.Id == @event.Id);
 
             item.IsDone = @event.IsDone;
             item.Updated = @event.Updated;
+        }
+
+        /// <summary>
+        /// Whens the specified event.
+        /// </summary>
+        /// <param name="event">The event.</param>
+        private void When(ItemDeletedEvent @event)
+        {
+            var item = this.items.First(i => i.Id == @event.Id);
+
+            this.items.Remove(item);
         }
     }
 }

@@ -38,5 +38,19 @@
         /// <param name="item">The item.</param>
         /// <returns>A/an <c>Task</c>.</returns>
         Task UpdateItemAsync(ToDoItem item);
+
+        /// <summary>
+        /// Deletes the item asynchronous.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>A/an <c>Task</c>.</returns>
+        Task DeleteItemAsync(Guid id);
+
+        /// <summary>
+        /// Deletes all items for list asynchronous.
+        /// </summary>
+        /// <param name="listId">The list identifier.</param>
+        /// <returns>A/an <c>Task</c>.</returns>
+        Task DeleteAllItemsForListAsync(Guid listId);
     }
 }

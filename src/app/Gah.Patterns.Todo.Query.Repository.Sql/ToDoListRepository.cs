@@ -56,7 +56,7 @@ namespace Gah.Patterns.ToDo.Query.Repository.Sql
 
             if (!string.IsNullOrWhiteSpace(title))
             {
-                q = q.Where(_ => _.Title.Contains(title));
+                q = q.Where(l => l.Title.Contains(title));
             }
 
             return q.ToListAsync();
@@ -70,7 +70,7 @@ namespace Gah.Patterns.ToDo.Query.Repository.Sql
         public Task<ToDoList> FindListAsync(Guid id)
         {
             this.logger.LogDebug("Finding list: {id}", id);
-            return this.entities.FirstOrDefaultAsync(_ => _.Id == id);
+            return this.entities.FirstOrDefaultAsync(l => l.Id == id);
         }
 
         /// <summary>
@@ -80,7 +80,7 @@ namespace Gah.Patterns.ToDo.Query.Repository.Sql
         /// <returns>A/an <c>Task</c>.</returns>
         public async Task CreateListAsync(ToDoList toDoList)
         {
-            this.logger.LogDebug("Creating the task {@list}", toDoList);
+            this.logger.LogDebug("Creating the list {@list}", toDoList);
             await this.entities.AddAsync(toDoList);
 
             await this.context.SaveChangesAsync();
@@ -93,12 +93,28 @@ namespace Gah.Patterns.ToDo.Query.Repository.Sql
         /// <returns>A/an <c>Task</c>.</returns>
         public async Task UpdateListAsync(ToDoList toDoList)
         {
-            this.logger.LogDebug("Updating the task {@list}", toDoList);
+            this.logger.LogDebug("Updating the list {@list}", toDoList);
 
-            var toDelete = await this.FindListAsync(toDoList.Id);
+            var toDelete = await this.entities.FirstAsync(l => l.Id == toDoList.Id);
             this.entities.Remove(toDelete);
 
             await this.entities.AddAsync(toDoList);
+
+            await this.context.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// delete list as an asynchronous operation.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>A/an <c>Task</c>.</returns>
+        public async Task DeleteListAsync(Guid id)
+        {
+            this.logger.LogDebug("Deleting the list {@list}", id);
+
+            var toDelete = await this.entities.FirstAsync(l => l.Id == id);
+
+            this.entities.Remove(toDelete);
 
             await this.context.SaveChangesAsync();
         }

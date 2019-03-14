@@ -38,5 +38,12 @@ namespace Gah.Patterns.ToDo.Query.Repository
         /// <param name="toDoList">To do list.</param>
         /// <returns>A/an <c>Task</c>.</returns>
         Task UpdateListAsync(ToDoList toDoList);
+
+        /// <summary>
+        /// Deletes the list asynchronous.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>A/an <c>Task</c>.</returns>
+        Task DeleteListAsync(Guid id);
     }
 }

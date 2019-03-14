@@ -9,16 +9,16 @@
     /// Implements the <see cref="Gah.Blocks.CqrsEs.Events.BasicEvent" />
     /// </summary>
     /// <seealso cref="Gah.Blocks.CqrsEs.Events.BasicEvent" />
-    public class ItemIsDoneUpdated : BasicEvent
+    public class ItemIsDoneUpdatedEvent : BasicEvent
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ItemIsDoneUpdated"/> class.
+        /// Initializes a new instance of the <see cref="ItemIsDoneUpdatedEvent"/> class.
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <param name="listId">The list identifier.</param>
         /// <param name="isDone">if set to <c>true</c> [to do].</param>
         /// <param name="updated">The updated.</param>
-        public ItemIsDoneUpdated(Guid id, Guid listId, bool isDone, DateTime updated)
+        public ItemIsDoneUpdatedEvent(Guid id, Guid listId, bool isDone, DateTime updated)
         {
             this.Id = id;
             this.ListId = listId;
