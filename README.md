@@ -35,3 +35,12 @@ A very simple list management app.
 | Version   | long     |
 | EventName | string   |
 | Created   | DateTime |
+
+## Other thoughts and musings
+
+1. To support rolling snapshots, similar to EventStore, I should create a metadata table that
+   contains at minimum a TruncateBefore column to house the current starting point of the event
+   stream.  This will allow a dev to create a "SnapshotCreated" type event, which will be assigned
+   some event number.  Once that EventNumber is known, should be able to call a method like 
+   `SetTruncateBefore("{stream id}", {Snapshot event number})`  Then loading the stream will continue
+   from where `EventNumber` >= `{Snapshot event number}`
