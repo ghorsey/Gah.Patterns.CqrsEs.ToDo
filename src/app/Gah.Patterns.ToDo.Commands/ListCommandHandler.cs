@@ -1,6 +1,5 @@
 ﻿namespace Gah.Patterns.ToDo.Commands
 {
-    using System;
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
@@ -11,8 +10,6 @@
     using Gah.Patterns.ToDo.Commands.Items;
     using Gah.Patterns.ToDo.Commands.Lists;
     using Gah.Patterns.ToDo.Domain;
-    using Gah.Patterns.ToDo.Events.Items;
-    using Gah.Patterns.ToDo.Events.Lists;
 
     using MediatR;
 
@@ -78,29 +75,12 @@
         /// <param name="request">The request.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>A/an <c>Task&lt;Unit&gt;</c>.</returns>
-        public async Task<Unit> Handle(CreateListCommand request, CancellationToken cancellationToken)
+        public Task<Unit> Handle(CreateListCommand request, CancellationToken cancellationToken)
         {
             this.logger.LogDebug("Got command {@event}", request);
+            var toDoList = new ToDoList(request.Id, request.Title);
 
-            var listCreated = new ListCreatedEvent(
-                request.Id,
-                request.Title,
-                DateTime.UtcNow,
-                DateTime.UtcNow);
-
-            var eventResult = await this.eventStore.ReadAllForwardAsync(listCreated.Id.ToString());
-            var list = new ToDoList(eventResult.Events);
-
-            list.Apply(listCreated);
-
-            this.logger.LogDebug("About to save version 1 of event {@event}", listCreated);
-            await this.eventStore.AppendToStreamAsync(list.Id.ToString(), 1, listCreated)
-                .ConfigureAwait(false);
-
-            await this.eventBus.PublishAsync(new[] { listCreated }, cancellationToken)
-                .ConfigureAwait(false);
-
-            return Unit.Value;
+            return this.PublishEvents(toDoList, 1, cancellationToken);
         }
 
         /// <summary>
@@ -115,30 +95,14 @@
         {
             this.logger.LogDebug("Got command {@event}", request);
 
-            var listUpdated = new ListUpdatedEvent(request.Id, request.Title, DateTime.UtcNow);
-
             var eventResult = await this.eventStore.ReadAllForwardAsync(request.Id.ToString())
                                   .ConfigureAwait(false);
 
             var list = new ToDoList(eventResult.Events);
 
-            list.Apply(listUpdated);
+            list.Update(request.Title);
 
-            this.logger.LogDebug(
-                "Attempting to save the version {version} for event {@event}",
-                eventResult.NextEventNumber,
-                listUpdated);
-
-            await this.eventStore.AppendToStreamAsync(
-                    list.Id.ToString(),
-                    eventResult.NextEventNumber,
-                    listUpdated)
-                .ConfigureAwait(false);
-
-            await this.eventBus.PublishAsync(new[] { listUpdated }, cancellationToken)
-                .ConfigureAwait(false);
-
-            return Unit.Value;
+            return await this.PublishEvents(list, eventResult.NextEventNumber, cancellationToken);
         }
 
         /// <summary>
@@ -156,40 +120,11 @@
 
             var eventResults = await this.eventStore.ReadAllForwardAsync(request.ListId.ToString());
 
+            var item = new ToDoItem(request.Id, request.Title);
             var list = new ToDoList(eventResults.Events);
 
-            var addItemEvent = new ItemAddedEvent(
-                request.Id,
-                request.ListId,
-                request.Title,
-                DateTime.UtcNow,
-                DateTime.UtcNow);
-
-            list.Apply(addItemEvent);
-
-            var countsChanged = this.CreateListCountsChangedEvent(list);
-
-            this.logger.LogDebug(
-                "About to save item added event {@event} for list {id}",
-                addItemEvent,
-                list.Id);
-
-            this.logger.LogDebug(
-                "About to save event counts changed {@countsChanged} for list {id}",
-                countsChanged,
-                list.Id);
-
-            await this.eventStore.AppendToStreamAsync(
-                list.Id.ToString(),
-                eventResults.NextEventNumber,
-                addItemEvent,
-                countsChanged);
-
-            await this.eventBus.PublishAsync(
-                new IEvent[] { addItemEvent, countsChanged },
-                cancellationToken);
-
-            return Unit.Value;
+            list.Add(item);
+            return await this.PublishEvents(list, eventResults.NextEventNumber, cancellationToken);
         }
 
         /// <summary>
@@ -206,22 +141,11 @@
 
             var list = new ToDoList(events.Events);
 
-            var itemUpdated = new ItemUpdatedEvent(
-                request.Id,
-                request.ListId,
-                request.Title,
-                DateTime.UtcNow);
+            var item = list.Items.First(i => i.Id == request.Id);
 
-            list.Apply(itemUpdated);
+            item.SetTitle(request.Title);
 
-            await this.eventStore.AppendToStreamAsync(
-                request.ListId.ToString(),
-                events.NextEventNumber,
-                itemUpdated);
-
-            await this.eventBus.PublishAsync(new[] { itemUpdated }, cancellationToken);
-
-            return Unit.Value;
+            return await this.PublishEvents(list, events.NextEventNumber, cancellationToken);
         }
 
         /// <summary>
@@ -237,38 +161,10 @@
             var events = await this.eventStore.ReadAllForwardAsync(request.ListId.ToString());
 
             var list = new ToDoList(events.Events);
+            var item = list.Items.First(i => i.Id == request.Id);
+            item.SetIsDone(request.IsDone);
 
-            var isDoneUpdated = new ItemIsDoneUpdatedEvent(
-                request.Id,
-                request.ListId,
-                request.IsDone,
-                DateTime.UtcNow);
-
-            list.Apply(isDoneUpdated);
-
-            var countsChangedEvent = this.CreateListCountsChangedEvent(list);
-
-            this.logger.LogDebug(
-                "About to save is done event {@event} for list {id}",
-                isDoneUpdated,
-                list.Id);
-
-            this.logger.LogDebug(
-                "About to save event counts changed {@countsChanged} for list {id}",
-                countsChangedEvent,
-                list.Id);
-
-            await this.eventStore.AppendToStreamAsync(
-                request.ListId.ToString(),
-                events.NextEventNumber,
-                isDoneUpdated,
-                countsChangedEvent);
-
-            await this.eventBus.PublishAsync(
-                new IEvent[] { isDoneUpdated, countsChangedEvent },
-                cancellationToken);
-
-            return Unit.Value;
+            return await this.PublishEvents(list, events.NextEventNumber, cancellationToken);
         }
 
         /// <summary>
@@ -284,27 +180,11 @@
             var eventStream = await this.eventStore.ReadAllForwardAsync(request.ListId.ToString());
 
             var list = new ToDoList(eventStream.Events);
+            var item = list.Items.First(i => i.Id == request.Id);
 
-            var deleteItemEvent = new ItemDeletedEvent(request.Id, request.ListId);
+            list.Remove(item);
 
-            list.Apply(deleteItemEvent);
-
-            var countsChangedEvent = this.CreateListCountsChangedEvent(list);
-
-            this.logger.LogDebug("About to record the event @{event}", deleteItemEvent);
-            this.logger.LogDebug("About to record the event {@event}", countsChangedEvent);
-
-            await this.eventStore.AppendToStreamAsync(
-                request.ListId.ToString(),
-                eventStream.NextEventNumber,
-                deleteItemEvent,
-                countsChangedEvent);
-
-            await this.eventBus.PublishAsync(
-                new IEvent[] { deleteItemEvent, countsChangedEvent },
-                cancellationToken);
-
-            return Unit.Value;
+            return await this.PublishEvents(list, eventStream.NextEventNumber, cancellationToken);
         }
 
         /// <summary>
@@ -323,34 +203,33 @@
 
             var list = new ToDoList(eventStream.Events);
 
-            var deletedListEvent = new ListDeletedEvent(request.Id);
+            list.Delete();
 
-            list.Apply(deletedListEvent);
-
-            this.logger.LogDebug("About to save the {@event}", deletedListEvent);
-
-            await this.eventStore.AppendToStreamAsync(
-                request.Id.ToString(),
-                eventStream.NextEventNumber,
-                deletedListEvent);
-
-            await this.eventBus.PublishAsync(new[] { deletedListEvent }, cancellationToken);
-
-            return Unit.Value;
+            return await this.PublishEvents(list, eventStream.NextEventNumber, cancellationToken);
         }
 
         /// <summary>
-        /// Creates the list counts changed event.
+        /// Publishes the events.
         /// </summary>
         /// <param name="list">The list.</param>
-        /// <returns>A/an <c>ListCountsChangedEvent</c>.</returns>
-        private ListCountsChangedEvent CreateListCountsChangedEvent(ToDoList list)
+        /// <param name="expectedVersion">The expected version.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns>A/an <c>Task&lt;Unit&gt;.</c></returns>
+        private async Task<Unit> PublishEvents(ToDoList list, long expectedVersion, CancellationToken cancellationToken)
         {
-            return new ListCountsChangedEvent(
-                list.Id,
-                list.Items.Count,
-                list.Items.Count(i => !i.IsDone),
-                list.Items.Count(i => i.IsDone));
+            this.logger.LogDebug(
+                "About to save starting version {expectedVersion} of {count} event/s",
+                expectedVersion,
+                list.Events);
+
+            await this.eventStore.AppendToStreamAsync(
+                list.Id.ToString(),
+                expectedVersion,
+                list.Events);
+
+            await this.eventBus.PublishAsync(list.Events, cancellationToken);
+
+            return Unit.Value;
         }
     }
 }

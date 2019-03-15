@@ -1,5 +1,6 @@
 namespace Gah.Patterns.ToDo.Domain
 {
+    // ReSharper disable UnusedMember.Local
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
@@ -28,7 +29,28 @@ namespace Gah.Patterns.ToDo.Domain
         public ToDoList(IEnumerable<IEvent> events)
             : this()
         {
-            this.Apply(events);
+            this.Apply(events, true);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ToDoList"/> class.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="title">The title.</param>
+        public ToDoList(Guid id, string title)
+            : this()
+        {
+            this.Id = id;
+            this.Title = title;
+            this.Created = DateTime.UtcNow;
+            this.Updated = DateTime.UtcNow;
+
+            this.Events.Enqueue(
+                new ListCreatedEvent(
+                    this.Id,
+                    this.Title,
+                    this.Updated,
+                    this.Created));
         }
 
         /// <summary>
@@ -70,6 +92,10 @@ namespace Gah.Patterns.ToDo.Domain
         public void Add(ToDoItem item)
         {
             this.items.Add(item);
+            item.SetList(this);
+
+            this.Events.Enqueue(new ItemAddedEvent(item.Id, this.Id, item.Title, item.Created, item.Updated));
+            this.Events.Enqueue(this.CreateListCountsChangedEvent());
         }
 
         /// <summary>
@@ -79,6 +105,44 @@ namespace Gah.Patterns.ToDo.Domain
         public void Remove(ToDoItem item)
         {
             this.items.Remove(item);
+
+            this.Events.Enqueue(new ItemDeletedEvent(item.Id, this.Id));
+            this.Events.Enqueue(this.CreateListCountsChangedEvent());
+        }
+
+        /// <summary>
+        /// Deletes this instance.
+        /// </summary>
+        public void Delete()
+        {
+            var deletedEvent = new ListDeletedEvent(this.Id);
+
+            this.Events.Enqueue(deletedEvent);
+        }
+
+        /// <summary>
+        /// Updates the specified title.
+        /// </summary>
+        /// <param name="title">The title.</param>
+        public void Update(string title)
+        {
+            this.Title = title;
+            this.Updated = DateTime.UtcNow;
+
+            this.Events.Enqueue(new ListUpdatedEvent(this.Id, this.Title, this.Updated));
+        }
+
+        /// <summary>
+        /// Creates the list counts changed event.
+        /// </summary>
+        /// <returns>A/an <c>ListCountsChangedEvent</c>.</returns>
+        internal ListCountsChangedEvent CreateListCountsChangedEvent()
+        {
+            return new ListCountsChangedEvent(
+                this.Id,
+                this.Items.Count,
+                this.Items.Count(i => !i.IsDone),
+                this.Items.Count(i => i.IsDone));
         }
 
         /// <summary>
@@ -123,6 +187,7 @@ namespace Gah.Patterns.ToDo.Domain
         private void When(ItemAddedEvent @event)
         {
             var item = new ToDoItem(@event.Id, @event.Title, false, @event.Created, @event.Updated);
+            item.SetList(this);
 
             this.items.Add(item);
         }
@@ -136,7 +201,7 @@ namespace Gah.Patterns.ToDo.Domain
         {
             var item = this.items.First(i => i.Id == @event.Id);
 
-            item.Title = @event.Title;
+            item.SetTitle(@event.Title);
             item.Updated = @event.Updated;
         }
 
@@ -148,8 +213,7 @@ namespace Gah.Patterns.ToDo.Domain
         private void When(ItemIsDoneUpdatedEvent @event)
         {
             var item = this.items.First(i => i.Id == @event.Id);
-
-            item.IsDone = @event.IsDone;
+            item.SetIsDone(@event.IsDone);
             item.Updated = @event.Updated;
         }
 

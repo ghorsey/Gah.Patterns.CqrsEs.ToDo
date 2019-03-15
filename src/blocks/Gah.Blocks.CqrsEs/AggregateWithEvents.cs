@@ -36,20 +36,26 @@
         /// Applies the specified event.
         /// </summary>
         /// <param name="event">The event.</param>
-        public void Apply(IEvent @event)
+        /// <param name="published">if set to <c>true</c> [published].</param>
+        public void Apply(IEvent @event, bool published = false)
         {
             this.InvokeEventOptional(@event);
+            if (!published)
+            {
+                this.Events.Enqueue(@event);
+            }
         }
 
         /// <summary>
         /// Applies the specified events.
         /// </summary>
         /// <param name="events">The events.</param>
-        public void Apply(IEnumerable<IEvent> events)
+        /// <param name="published">if set to <c>true</c> [published].</param>
+        public void Apply(IEnumerable<IEvent> events, bool published = false)
         {
             foreach (var @event in events)
             {
-                this.Apply(@event);
+                this.Apply(@event, published);
             }
         }
     }
